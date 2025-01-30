@@ -17,6 +17,41 @@ interface Props {
     onChangeHandler: (data: ISelect) => void 
 }
 
+const CustomStyles = {
+    control: (styles: any, state: any) => ({
+        ...styles,
+        borderRadius: '50px',
+        color: "#262626",
+        fontWeight: 600,
+        paddingLeft: '10px',
+
+        background: "#ebedec",
+        boxShadow: 'none',
+        border: 'none',
+        cursor: 'pointer',
+        "&:hover": {
+            border: 'none'
+        },
+    }),
+    option: (styles: any, state: any) => ({
+        ...styles,
+        fontSize: "14px",
+        color: "#262626",
+        fontWeight: 600,
+        cursor: 'pointer',
+        "&:hover": {
+            background: "#ebedec"
+        },
+        background: state.isSelected ? "#c8c8c8" : "#f9f9f9"
+    }),
+    menu: (styles: any, state: any) => ({
+        ...styles,
+    }),
+    indicatorSeparator: () => ({
+        display: 'none', // убирает разделитель между стрелкой и полем
+    }),
+}
+
 
 export const CustomSelect = ({
     className,
@@ -45,43 +80,11 @@ export const CustomSelect = ({
             {
                 isClient &&
                 <Select 
+                    // menuIsOpen
                     options={options} 
                     placeholder={placeholder} 
                     onChange={funcOnChangeHandler}
-                    styles={{
-                        option: (provided: any, state: any) => ({
-                            ...provided,
-                            backgroundColor: state.isSelected ? '#b0b0b0' : 'transparent',  // Изменение фона
-                            color: state.isSelected ? 'white' : 'black',  // Цвет текста при выборе
-                            fontWeight: state.isSelected ? "700" : "400",
-                            padding: '5px',  // Отступы
-                            cursor: 'pointer',  // Курсор в виде руки
-                            fontSize: '14px',
-                            '&:hover': {
-                            backgroundColor: '#efefef',  // Цвет фона при наведении
-                            color: 'black',  // Цвет текста при наведении
-                            },
-                        }),
-                        menu: (provided: any, state: any) => ({
-                            ...provided,
-                            border: '1px solid #b0b0b0',
-                            borderRadius: '5px',
-                            padding: '0'
-                        }),
-                        control: (provided: any, state: any) => ({
-                            ...provided,
-                            borderRadius: '8px',  // Радиус границ
-                            borderColor: state.isFocused ? '#ccc' : '#ccc', // Цвет границы при фокусе и без фокуса
-                            borderWidth: state.isFocused ? '1px' : state.isSelected ? '1px' : '1px',  // Толщина границы
-                            boxShadow: state.isFocused ? '0 0 0 1px #ccc' : 'none',  // Тень при фокусе
-                            '&:hover': {
-                                borderColor: '#ccc',  // Цвет границы при наведении
-                            },
-                        }),
-                        indicatorSeparator: () => ({
-                            display: 'none', // убирает разделитель между стрелкой и полем
-                        }),
-                    }}
+                    styles={CustomStyles}
                 />
             }
         </>
