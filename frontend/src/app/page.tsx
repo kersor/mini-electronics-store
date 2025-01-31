@@ -1,8 +1,6 @@
 "use client"
 
 import { Container } from "@/components/shared/container/Container";
-import { CustomSelect } from "@/components/ui/customSelect/CustomSelect";
-import { FiltersToolbar } from "@/components/unique/filtersToolbar/FiltersToolbar";
 import { IFilters } from "@/types/filters";
 import { ISelect } from "@/types/select";
 import Image from "next/image";
@@ -51,11 +49,6 @@ export default function Home() {
       <div className="w-full h-[300px] bg-[#9bb8a1] rounded-[5px] mt-5 relative">
         <div className="absolute text-[20px] top-[50%] left-[50%] -translate-y-[50%] -translate-x-[50%] font-bold uppercase text-[#FFF] tracking-widest">Контент</div>
       </div>
-      <FiltersToolbar 
-        testSelect={testSelect}
-        filters={filters}
-        setFilters={funcHanlderSetFilters}
-      />
     </Container>
   );
 }
