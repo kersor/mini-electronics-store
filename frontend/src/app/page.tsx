@@ -47,12 +47,16 @@ export default function Home() {
         <div className="absolute text-[20px] top-[50%] left-[50%] -translate-y-[50%] -translate-x-[50%] font-bold uppercase text-[#FFF] tracking-widest">Контент</div>
       </div>
       <div className="mt-10" />
-      <CustomSelect 
-        placeholder={"Категория"}
-        options={testSelect} 
-        value={category} 
-        handleChange={(value: string) => setCategory(value)}
-      />
+      <div className="flex w-full gap-5">
+        <div className="max-w-[300px] w-full">
+          <CustomSelect 
+            placeholder={"Категория"}
+            options={testSelect} 
+            value={category} 
+            handleChange={(value: string) => setCategory(value)}
+          />
+        </div>
+      </div>
     </Container>
   );
 }

@@ -34,7 +34,6 @@ const theme = createTheme({
                 root: {
                     "&.MuiOutlinedInput-root": {     
                         "&.MuiSelect-root": {
-                            background: "#eeeeee",
                             borderRadius: "50px"
                         }
                     }
@@ -66,8 +65,22 @@ const theme = createTheme({
                     paddingLeft: "17px"
                 }
             }
-        }
+        },
+        MuiButtonBase: {
+            styleOverrides: {
+                root: {
+                    "&.Mui-selected": {
+                        backgroundColor: "#ededed !important",
+                    },
+                    "&:hover": {
+                        backgroundColor: "#ededed"
+                    },
+                }
+            }
+        },
+        
     },
 });
+// .mui-1tifib-MuiButtonBase-root-MuiMenuItem-root.Mui-selected
 
 export default theme;
