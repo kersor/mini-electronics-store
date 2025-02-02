@@ -9,7 +9,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { GroupBase } from "react-select";
 
-const testSelect = [
+const list_category = [
   {
     id: "123",
     title: "Смартфоны"
@@ -32,6 +32,40 @@ const testSelect = [
   }
 ]
 
+const list_color = [
+  {
+    id: "123",
+    title: "Зеленый",
+    hex: "#75ba75"
+  }, 
+  {
+    id: "124",
+    title: "Красный",
+    hex: "#e6363a"
+  },
+  {
+    id: "125",
+    title: "Бежевый",
+    hex: "#dfc0ab"
+  },
+]
+
+const list_material = [
+  {
+    id: "123",
+    title: "Металл",
+  }, 
+  {
+    id: "124",
+    title: "Пластмасса",
+  },
+  {
+    id: "125",
+    title: "Дерево",
+  },
+]
+
+
 
 
 export default function Home() {
@@ -47,15 +81,38 @@ export default function Home() {
         <div className="absolute text-[20px] top-[50%] left-[50%] -translate-y-[50%] -translate-x-[50%] font-bold uppercase text-[#FFF] tracking-widest">Контент</div>
       </div>
       <div className="mt-10" />
-      <div className="flex w-full gap-5">
-        <div className="max-w-[300px] w-full">
+      <div className="flex justify-between">
+        <div>
           <CustomSelect 
             placeholder={"Категория"}
-            options={testSelect} 
+            options={list_category} 
             value={category} 
             handleChange={(value: string) => setCategory(value)}
+            minWidth={130}
+          />
+          <CustomSelect 
+            placeholder={"Цвет"}
+            options={list_color} 
+            value={category} 
+            handleChange={(value: string) => setCategory(value)}
+            minWidth={90}
+          />
+          <CustomSelect 
+            placeholder={"Материал"}
+            options={list_material} 
+            value={category} 
+            handleChange={(value: string) => setCategory(value)}
+            minWidth={125}
           />
         </div>
+          <CustomSelect 
+              type={"outlined"}
+              placeholder={"Категория"}
+              options={list_category} 
+              value={category} 
+              handleChange={(value: string) => setCategory(value)}
+              minWidth={130}
+          />
       </div>
     </Container>
   );

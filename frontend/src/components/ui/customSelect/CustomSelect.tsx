@@ -3,17 +3,13 @@ import { useEffect, useState } from "react"
 
 type TypeSelect = "default" | "outlined"
 
-interface IOptions {
-    id: string
-    title: string
-}
-
 interface Props {
     value: string
     handleChange: (value: string) => void
-    options: IOptions[]
+    options: any[]
     placeholder: string
     type?: TypeSelect
+    minWidth: number
 }
 
 export const CustomSelect = ({
@@ -21,7 +17,8 @@ export const CustomSelect = ({
     handleChange,
     options,
     placeholder,
-    type = 'default'
+    type = 'default',
+    minWidth
 }: Props) => {
     let stylesOutlinedInput = {}
     let stylesSelectedItemPlaceholder = {
@@ -51,26 +48,33 @@ export const CustomSelect = ({
     }
 
     return (
-        <FormControl fullWidth size="small">
+        <FormControl sx={{ m: 1, minWidth: minWidth }} size="small" >
             <InputLabel id="demo-simple-select-label">{placeholder}</InputLabel>
             <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={value}
-                label="Категория"
                 onChange={funcHandleChange}
+                autoWidth
+                label="Категория"
+
                 sx={stylesOutlinedInput}
                 MenuProps={{
                     PaperProps: {
                         sx: {
-                            top: "465px !important",
+                            top: "475px !important",
                             borderRadius: "12px", // Закругляем углы выпадающего списка
                         }
                     }
                 }}
             >
                 <MenuItem sx={stylesSelectedItemPlaceholder} value="">Очистить</MenuItem>
-                {options.map(item => <MenuItem sx={{fontSize: "14px"}} key={item.id} value={item.id}>{item.title}</MenuItem>)}
+                {options.map(item => (
+                    <MenuItem sx={{fontSize: "14px", display: 'flex', alignItems: "center", gap: "5px"}} key={item.id} value={item.id}>
+                        {item.hex && <div style={{background: item.hex}} className={`w-[15px] h-[15px] rounded-sm`}></div>}
+                        {item.title}
+                    </MenuItem>
+                ))}
             </Select>
         </FormControl>
     )

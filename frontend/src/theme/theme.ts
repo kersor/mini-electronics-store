@@ -61,6 +61,9 @@ const theme = createTheme({
         MuiSelect: {
             styleOverrides: {
                 select: {
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "5px",
                     fontSize: '14px',
                     paddingLeft: "17px"
                 }
@@ -81,6 +84,5 @@ const theme = createTheme({
         
     },
 });
-// .mui-1tifib-MuiButtonBase-root-MuiMenuItem-root.Mui-selected
 
 export default theme;
