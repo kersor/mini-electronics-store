@@ -1,0 +1,30 @@
+.select {
+    @apply relative ;
+}
+
+.select:hover .select_menu{
+    @apply block;
+}
+
+.select_placeholder {
+    @apply flex gap-1 items-center bg-[#ebedec] rounded-[10px] px-4 py-1.5 cursor-pointer;
+    @apply text-[14px] text-[#232323] font-bold tracking-wide;
+}
+
+.select_placeholder_arrow {
+    @apply transition-all duration-300 ;
+}
+
+.select_placeholder:hover .select_placeholder_arrow {
+    @apply rotate-180;
+}
+
+.select_menu {
+    @apply absolute hidden pt-2 ;
+    
+}
+
+.select_list {
+    @apply rounded-[10px] p-5 ;
+    box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.2);
+}
