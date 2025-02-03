@@ -1,6 +1,7 @@
 "use client"
 
 import { Container } from "@/components/shared/container/Container";
+import { CustomCheckbox } from "@/components/ui/customCheckbox/CustomCheckbox";
 import { CustomSelect } from "@/components/ui/customSelect/customSelect";
 import { IFilters } from "@/types/filters";
 import { ISelect } from "@/types/select";
@@ -77,9 +78,11 @@ export default function Home() {
         <CustomSelect 
           placeholder="Категория"
         >
-          {/* {
-            list_category.map(item => <div className="cursor-pointer" key={item.id}>{item.title}</div>)
-          } */}
+          {
+            list_category.map(item => (
+              <CustomCheckbox key={item.id} value={item.id} label={item.title} />
+            ))
+          }
         </CustomSelect>
       </div>
     </Container>
