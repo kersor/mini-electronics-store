@@ -2,7 +2,9 @@
 
 import { Container } from "@/components/shared/container/Container";
 import { SelectListCheckbox } from "@/components/shared/select/SelectListCheckbox";
+import { SelectListRadioButton } from "@/components/shared/select/SelectListRadioButton";
 import { CustomCheckbox } from "@/components/ui/customCheckbox/CustomCheckbox";
+import { CustomRadioButton } from "@/components/ui/customRadioButton/CustomRadioButton";
 import { CustomSelect } from "@/components/ui/customSelect/customSelect";
 import { IFilters } from "@/types/filters";
 import { ISelect } from "@/types/select";
@@ -11,23 +13,23 @@ import { useState } from "react";
 
 const list_category = [
   {
-    id: "123",
+    id: "1",
     title: "Смартфоны"
   }, 
   {
-    id: "124",
+    id: "2",
     title: "Фотооаппараты"
   },
   {
-    id: "125",
+    id: "3",
     title: "Фотооаппараты"
   },
   {
-    id: "126",
+    id: "4",
     title: "Фотооаппараты"
   },
   {
-    id: "127",
+    id: "5",
     title: "Фотооаппараты"
   }
 ]
@@ -82,16 +84,14 @@ export default function Home() {
 
         
         <CustomSelect placeholder="Категория" >
-          <SelectListCheckbox
-            data={list_category}
-          />
+          <SelectListCheckbox data={list_category}/>
         </CustomSelect>
 
 
         <CustomSelect
           placeholder="Цена"
         >
-
+          <SelectListRadioButton data={list_category} />
         </CustomSelect>
       </div>
     </Container>
