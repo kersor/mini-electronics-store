@@ -88,9 +88,7 @@ export default function Home() {
         </CustomSelect>
 
 
-        <CustomSelect
-          placeholder="Цена"
-        >
+        <CustomSelect placeholder="Цена">
           <SelectListRadioButton data={list_category} />
         </CustomSelect>
       </div>

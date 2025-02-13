@@ -27,7 +27,6 @@ export const SelectListRadioButton = ({
             {data.map(item => (
                 <CustomRadioButton checked={checkboxValues} key={item.id} value={item.id} label={item.title} onChange={funcOnChangeCheckbox} />
             ))}
-            <CustomButton className="mt-4" title="Готово" onClick={() => console.log(checkboxValues)} />
         </>
     )
 }

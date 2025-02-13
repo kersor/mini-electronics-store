@@ -19,7 +19,19 @@ export const SelectListCheckbox = ({
     const [checkboxValues, setCheckboxValues] = useState<string[]>([])
     
     const funcOnChangeCheckbox = (value: string) => {
-        setCheckboxValues(prev => [...prev, value])
+        if(!!checkboxValues.length) {
+            const isHas = checkboxValues.includes(value)
+
+            if (isHas) {
+                const newCheckboxValues = checkboxValues.filter(item => item !== value)
+                setCheckboxValues(prev => [...newCheckboxValues])
+            } else {
+                setCheckboxValues(prev => [...prev, value])
+            }
+        }
+        else {
+            setCheckboxValues(prev => [value])
+        }
     }
 
     return (
