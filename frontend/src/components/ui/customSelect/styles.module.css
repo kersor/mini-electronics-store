@@ -20,11 +20,10 @@
 }
 
 .select_menu {
-    @apply absolute hidden pt-2 ;
-    
+    @apply absolute hidden pt-2;
 }
 
 .select_list {
-    @apply rounded-[10px] p-5 ;
+    @apply rounded-[10px] py-3 px-6 ;
     box-shadow: 0px 5px 15px 1px rgba(0, 0, 0, 0.2);
 }

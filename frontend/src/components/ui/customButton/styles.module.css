@@ -1,0 +1,13 @@
+.button {
+    text-align: center;
+    cursor: pointer;
+}
+
+.button_normal {
+    border: 1px solid #232323;
+    border-radius: 5px;
+    background: rgba(36, 36, 36, 0.85);
+    color: #FFF;
+    font-size: 14px;
+    font-weight: 600;
+}
