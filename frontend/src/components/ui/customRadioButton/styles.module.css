@@ -20,3 +20,11 @@
 .radio:checked + .radioStyle {
     @apply border-2 ;
 }
+
+.label_title {
+    @apply leading-none;
+}
+
+.radio:checked + .label_title {
+    @apply font-bold;
+}

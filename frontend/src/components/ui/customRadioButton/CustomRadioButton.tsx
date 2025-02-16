@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import styles from './styles.module.css'
+import clsx from 'clsx'
 
 interface Props {
     className?: string
@@ -7,7 +8,8 @@ interface Props {
     value: string
     onChange: (val: string) => void
     label: string,
-    checked: string
+    checked: string,
+    vsbSircle?: boolean
 }
 
 export const CustomRadioButton = ({
@@ -16,8 +18,10 @@ export const CustomRadioButton = ({
     onChange,
     value,
     label,
-    checked
+    checked,
+    vsbSircle = true
 }: Props) => {
+
     const funcOnChange = (value: string) => {
         onChange(value)
     }
@@ -25,8 +29,8 @@ export const CustomRadioButton = ({
     return (
         <label className={styles.label}>
             <input onChange={(e) => funcOnChange(e.target.value)} value={value} type="radio" checked={checked === value} className={styles.radio} />
-            <span className={styles.radioStyle}></span>
-            <span className='ml-7 leading-none'>{label}</span>
+            {vsbSircle && <span className={styles.radioStyle}></span>}
+            <span className={clsx(styles.label_title, vsbSircle ? "ml-7" : "")}>{label}</span>
         </label>
     )
 }

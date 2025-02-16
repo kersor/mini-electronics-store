@@ -31,9 +31,9 @@ export const SelectListCheckbox = ({
     return (
         <>
             {data.map(item => (
-                <CustomCheckbox key={item.id} value={item.id} label={item.title} onChange={funcOnChangeCheckbox} />
+                <CustomCheckbox data={item} key={item.id} value={item.id} label={item.title} onChange={funcOnChangeCheckbox} />
             ))}
-            <CustomButton className="mt-4" title="Готово" onClick={() => console.log(checkboxValues)} />
+            <CustomButton className="mt-5 min-w-[200px]" title="Готово" onClick={() => console.log(checkboxValues)} />
         </>
     )
 }

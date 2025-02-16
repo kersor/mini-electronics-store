@@ -35,41 +35,57 @@ const list_category = [
   }
 ]
 
-const price = [
+const sort = [
+  {
+    id: "123",
+    title: "По популярности",
+  },
+  {
+    id: "124",
+    title: "По рейтингу",
+  },
+  {
+    id: "125",
+    title: "Сначала дешевле",
+  },
+  {
+    id: "126",
+    title: "Сначала дороже",
+  }
 ]
 
-// const list_color = [
-//   {
-//     id: "123",
-//     title: "Зеленый",
-//     hex: "#75ba75"
-//   }, 
-//   {
-//     id: "124",
-//     title: "Красный",
-//     hex: "#e6363a"
-//   },
-//   {
-//     id: "125",
-//     title: "Бежевый",
-//     hex: "#dfc0ab"
-//   },
-// ]
+const list_color = [
+  {
+    id: "123",
+    title: "Зеленый",
+    hex: "#75ba75"
+  }, 
+  {
+    id: "124",
+    title: "Красный",
+    hex: "#e6363a"
+  },
+  {
+    id: "125",
+    title: "Бежевый",
+    hex: "#dfc0ab"
+  },
+]
 
-// const list_material = [
-//   {
-//     id: "123",
-//     title: "Металл",
-//   }, 
-//   {
-//     id: "124",
-//     title: "Пластмасса",
-//   },
-//   {
-//     id: "125",
-//     title: "Дерево",
-//   },
-// ]
+const list_material = [
+  {
+    id: "123",
+    title: "Металл",
+  }, 
+  {
+    id: "124",
+    title: "Пластмасса",
+  },
+  {
+    id: "125",
+    title: "Дерево",
+  },
+]
 
 
 
@@ -86,15 +102,19 @@ export default function Home() {
           <CustomSelect placeholder="Категория" >
             <SelectListCheckbox data={list_category}/>
           </CustomSelect>
-
-
           <CustomSelect placeholder="Цена">
             <SelectRange />
           </CustomSelect>
+          <CustomSelect placeholder="Цвет" >
+            <SelectListCheckbox data={list_color}/>
+          </CustomSelect>
+          <CustomSelect placeholder="Материал" >
+            <SelectListCheckbox data={list_material}/>
+          </CustomSelect>
         </div>
-        <CustomSelect type={"outline"} placeholder="Категория">
-            <SelectListCheckbox data={list_category}/>
-        </CustomSelect>
+          <CustomSelect type={"outline"} placeholder="Сортировать">
+              <SelectListRadioButton data={sort}/>
+          </CustomSelect>
       </div>
     </Container>
   );

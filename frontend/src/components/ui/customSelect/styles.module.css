@@ -1,5 +1,5 @@
 .select {
-    @apply relative ;
+    @apply relative;
 }
 
 .select:hover .select_menu{
@@ -20,7 +20,7 @@
 }
 
 .select_menu {
-    @apply absolute hidden bg-[#FFF] pt-2;
+    @apply absolute hidden bg-[#FFF] pt-2 w-max;
 }
 
 .select_list {

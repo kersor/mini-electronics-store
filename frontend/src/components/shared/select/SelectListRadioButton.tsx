@@ -25,7 +25,7 @@ export const SelectListRadioButton = ({
     return (
         <>
             {data.map(item => (
-                <CustomRadioButton checked={checkboxValues} key={item.id} value={item.id} label={item.title} onChange={funcOnChangeCheckbox} />
+                <CustomRadioButton vsbSircle={false} checked={checkboxValues} key={item.id} value={item.id} label={item.title} onChange={funcOnChangeCheckbox} />
             ))}
         </>
     )

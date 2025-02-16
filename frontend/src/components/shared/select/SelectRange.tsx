@@ -19,14 +19,14 @@ export const SelectRange = () => {
             <div className="flex gap-2">
                 <div className="w-full">
                     <div className="text-[14px] pb-1">От</div>
-                    <CustomInput type={"number"} value={inputRange[0]} onChange={(value: string) => funcOnChange(0, value)} />
+                    <CustomInput classNameBox="max-w-[100px]" type={"number"} value={inputRange[0]} onChange={(value: string) => funcOnChange(0, value)} />
                 </div>
                 <div className="w-full">
                     <div className="text-[14px] pb-1">До</div>
-                    <CustomInput type={"number"} value={inputRange[1]} onChange={(value: string) => funcOnChange(1, value)} />
+                    <CustomInput classNameBox="max-w-[100px]" type={"number"} value={inputRange[1]} onChange={(value: string) => funcOnChange(1, value)} />
                 </div>
             </div>
-            <CustomButton title="Готово" onClick={() => console.log()} />
+            <CustomButton className="mt-3 min-w-[200px]" title="Готово" onClick={() => console.log()} />
         </div>
     )
 }
