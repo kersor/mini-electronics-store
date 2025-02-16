@@ -21,13 +21,7 @@ export const SelectListCheckbox = ({
     const funcOnChangeCheckbox = (value: string) => {
         if(!!checkboxValues.length) {
             const isHas = checkboxValues.includes(value)
-
-            if (isHas) {
-                const newCheckboxValues = checkboxValues.filter(item => item !== value)
-                setCheckboxValues(prev => [...newCheckboxValues])
-            } else {
-                setCheckboxValues(prev => [...prev, value])
-            }
+            isHas ? setCheckboxValues(prev => [...checkboxValues.filter(item => item !== value)]) : setCheckboxValues(prev => [...prev, value])
         }
         else {
             setCheckboxValues(prev => [value])

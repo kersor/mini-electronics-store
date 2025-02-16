@@ -24,7 +24,7 @@ export const CustomButton = ({
 
     return (
         <div className={clsx(
-            "w-full ", 
+            "w-full py-1", 
             styles.button,
             buttonStyle[type],
             className, 

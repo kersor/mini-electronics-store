@@ -3,6 +3,7 @@
 import { Container } from "@/components/shared/container/Container";
 import { SelectListCheckbox } from "@/components/shared/select/SelectListCheckbox";
 import { SelectListRadioButton } from "@/components/shared/select/SelectListRadioButton";
+import { SelectRange } from "@/components/shared/select/SelectRange";
 import { CustomCheckbox } from "@/components/ui/customCheckbox/CustomCheckbox";
 import { CustomRadioButton } from "@/components/ui/customRadioButton/CustomRadioButton";
 import { CustomSelect } from "@/components/ui/customSelect/customSelect";
@@ -80,16 +81,19 @@ export default function Home() {
         <div className="absolute text-[20px] top-[50%] left-[50%] -translate-y-[50%] -translate-x-[50%] font-bold uppercase text-[#FFF] tracking-widest">Контент</div>
       </div>
       <div className="mt-10" />
-      <div className="flex gap-5">
+      <div className="flex justify-between">
+        <div className="flex gap-5">
+          <CustomSelect placeholder="Категория" >
+            <SelectListCheckbox data={list_category}/>
+          </CustomSelect>
 
-        
-        <CustomSelect placeholder="Категория" >
-          <SelectListCheckbox data={list_category}/>
-        </CustomSelect>
 
-
-        <CustomSelect placeholder="Цена">
-          <SelectListRadioButton data={list_category} />
+          <CustomSelect placeholder="Цена">
+            <SelectRange />
+          </CustomSelect>
+        </div>
+        <CustomSelect type={"outline"} placeholder="Категория">
+            <SelectListCheckbox data={list_category}/>
         </CustomSelect>
       </div>
     </Container>
