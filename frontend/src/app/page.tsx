@@ -1,6 +1,7 @@
 "use client"
 
 import { Container } from "@/components/shared/container/Container";
+import { Product } from "@/components/shared/product/Product";
 import { IFilters } from "@/types/filters";
 import { ISelect } from "@/types/select";
 import Image from "next/image";
@@ -73,6 +74,9 @@ export default function Home() {
       </div>
       <div className="mt-10" />
       <div className="flex justify-between"></div>
+      <div className="grid grid-cols-4 gap-5">
+        <Product />
+      </div>
     </Container>
   );
 }
