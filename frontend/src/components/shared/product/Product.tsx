@@ -1,17 +1,20 @@
-import { Star } from "lucide-react"
 import { useState } from "react"
 import { AiFillStar } from "react-icons/ai"
 import { Rating } from 'react-simple-star-rating'
 import { StarRatingGet } from "../starRating/StarRatingGet"
 import styles from './styles.module.css'
+import clsx from "clsx"
+import { FaHeart, FaRegHeart } from "react-icons/fa"
 
 
 interface Props {
-    className?: string
+    className?: string,
+    favorite?: boolean 
 }
 
 export const Product = ({
-    className
+    className,
+    favorite = false
 }: Props) => {
 
 
@@ -19,6 +22,9 @@ export const Product = ({
         <div>
             <div className="bg-[#F6F6F6] py-5 relative rounded-[10px]">
                 <img className="max-w-[300px] h-auto object-cover" src="/product/1.png" alt="" />
+                <div className={clsx(styles.add_favorite)}> 
+                    {favorite ? <FaHeart color="#ec7063" size={16} /> : <FaRegHeart size={16} />}
+                </div>
             </div>
             <div className="flex flex-col gap-1 pt-6">
                 <div className="flex justify-between items-center font-bold px-0.5">

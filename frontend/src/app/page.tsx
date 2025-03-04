@@ -74,14 +74,15 @@ export default function Home() {
       </div>
       <div className="mt-10" />
       <div className="flex justify-between"></div>
+      <div className="text-[21px] font-bold mt-8 mb-4">Наушники для вас!</div>
       <div className="grid grid-cols-4 gap-5">
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
+        <Product favorite />
+        <Product  />
+        <Product  />
+        <Product  />
+        <Product  />
+        <Product  />
+        <Product  />
       </div>
     </Container>
   );
