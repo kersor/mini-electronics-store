@@ -1,12 +1,15 @@
 "use client"
 
 import { Container } from "@/components/shared/container/Container";
+
 import { SelectListCheckbox } from "@/components/shared/select/SelectListCheckbox";
 import { SelectListRadioButton } from "@/components/shared/select/SelectListRadioButton";
 import { SelectRange } from "@/components/shared/select/SelectRange";
 import { CustomCheckbox } from "@/components/ui/customCheckbox/CustomCheckbox";
 import { CustomRadioButton } from "@/components/ui/customRadioButton/CustomRadioButton";
 import { CustomSelect } from "@/components/ui/customSelect/customSelect";
+import { Product } from "@/components/shared/product/Product";
+
 import { IFilters } from "@/types/filters";
 import { ISelect } from "@/types/select";
 import Image from "next/image";
@@ -97,6 +100,7 @@ export default function Home() {
         <div className="absolute text-[20px] top-[50%] left-[50%] -translate-y-[50%] -translate-x-[50%] font-bold uppercase text-[#FFF] tracking-widest">Контент</div>
       </div>
       <div className="mt-10" />
+
       <div className="flex justify-between">
         <div className="flex gap-5">
           <CustomSelect placeholder="Категория" >
@@ -115,6 +119,16 @@ export default function Home() {
           <CustomSelect type={"outline"} placeholder="Сортировать">
               <SelectListRadioButton data={sort}/>
           </CustomSelect>
+      <div className="flex justify-between"></div>
+      <div className="text-[21px] font-bold mt-8 mb-4">Наушники для вас!</div>
+      <div className="grid grid-cols-4 gap-5">
+        <Product favorite />
+        <Product  />
+        <Product  />
+        <Product  />
+        <Product  />
+        <Product  />
+        <Product  />
       </div>
     </Container>
   );
