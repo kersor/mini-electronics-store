@@ -1,7 +1,7 @@
-import { ChevronDown } from 'lucide-react'
 import styles from './styles.module.css'
 import { PropsWithChildren } from 'react'
 import clsx from 'clsx'
+import { FaChevronDown } from 'react-icons/fa'
 
 type TypeSelectPlaceholder = "normal" | "outline"
 
@@ -29,7 +29,7 @@ export const CustomSelect = ({
             )}>
                 <div>{placeholder}</div>
                 <div className={styles.select_placeholder_arrow}>
-                    <ChevronDown size={20} strokeWidth={2.5} />
+                    <FaChevronDown />
                 </div>
             </div>
             <div className={styles.select_menu}>

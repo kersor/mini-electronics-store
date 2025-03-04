@@ -116,10 +116,10 @@ export default function Home() {
             <SelectListCheckbox data={list_material}/>
           </CustomSelect>
         </div>
-          <CustomSelect type={"outline"} placeholder="Сортировать">
-              <SelectListRadioButton data={sort}/>
-          </CustomSelect>
-      <div className="flex justify-between"></div>
+        <CustomSelect type={"outline"} placeholder="Сортировать">
+            <SelectListRadioButton data={sort}/>
+        </CustomSelect>
+      </div>
       <div className="text-[21px] font-bold mt-8 mb-4">Наушники для вас!</div>
       <div className="grid grid-cols-4 gap-5">
         <Product favorite />

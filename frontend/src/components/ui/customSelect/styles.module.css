@@ -20,7 +20,7 @@
 }
 
 .select_menu {
-    @apply absolute hidden bg-[#FFF] pt-2 w-max;
+    @apply absolute hidden bg-[#FFF] pt-2 w-max z-10;
 }
 
 .select_list {
