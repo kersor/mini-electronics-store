@@ -15,12 +15,8 @@ export const StarRatingGet = ({
 
     return (
         <div className="flex items-center">
-            {
-                [...Array(count)].map(item => <AiFillStar color="#0aab07" />)
-            }
-            {
-                [...Array(5 - count)].map(item => <AiFillStar color="#e1e1e1" />)
-            }
+            {[...Array(count)].map((_, idx: number) => <AiFillStar key={idx} color="#0aab07" />)}
+            {[...Array(5 - count)].map((_, idx: number) => <AiFillStar key={idx} color="#e1e1e1" />)}
         </div>
     )
 }

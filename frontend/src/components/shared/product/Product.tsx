@@ -3,6 +3,7 @@ import { useState } from "react"
 import { AiFillStar } from "react-icons/ai"
 import { Rating } from 'react-simple-star-rating'
 import { StarRatingGet } from "../starRating/StarRatingGet"
+import styles from './styles.module.css'
 
 
 interface Props {
@@ -30,7 +31,7 @@ export const Product = ({
                     <div className="mt-1.5 text-[#636363] text-[13px]">(121)</div>
                 </div>
                 <div className="w-full">
-                    <div className="flex justify-center w-[40%] border border-[#000] py-2 mt-3 text-[14px] rounded-3xl cursor-pointer">В корзину</div>
+                    <div className={styles.add_card}>В корзину</div>
                 </div>
             </div>
         </div>

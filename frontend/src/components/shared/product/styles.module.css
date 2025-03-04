@@ -1,0 +1,8 @@
+.add_card {
+    @apply flex justify-center w-[40%] border border-[#000] py-2 mt-3 text-[14px] rounded-3xl cursor-pointer font-semibold;
+    transition: all 0.1s ease;
+}
+
+.add_card:hover {
+    @apply text-[#FFF] border-[#9bb8a1] bg-[#9bb8a1];
+}

@@ -76,6 +76,12 @@ export default function Home() {
       <div className="flex justify-between"></div>
       <div className="grid grid-cols-4 gap-5">
         <Product />
+        <Product />
+        <Product />
+        <Product />
+        <Product />
+        <Product />
+        <Product />
       </div>
     </Container>
   );
