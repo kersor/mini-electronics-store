@@ -1,0 +1,25 @@
+.auth_container {
+    @apply absolute top-[100%] left-[50%] w-[50%] h-full bg-[#FFF] rounded-r-xl;
+    transition: all 1s ease;
+
+    overflow: hidden;
+    opacity: 0;
+    z-index: -10;
+    visibility: hidden 
+}
+
+.auth_container__active {
+    @apply top-[0];
+    opacity: 100;
+    z-index: 10;
+    visibility: visible
+}
+
+.auth_component {
+    @apply flex flex-col h-full w-full p-10 rounded-r-xl;
+    transition: all 1s ease;
+}
+
+.auth_btn {
+    @apply flex justify-center items-center bg-[#9bb8a1] w-full py-3 cursor-pointer text-[#FFF] rounded-lg font-semibold text-[14px];
+}
