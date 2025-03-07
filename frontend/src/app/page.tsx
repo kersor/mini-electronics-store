@@ -18,6 +18,15 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { array, object, string } from "yup";
 
+interface Form {
+  category: string[]
+  price_min: string
+  price_max: string
+  color: string[]
+  material: string[]
+  sort: string
+}
+
 const list_category = [
   {
     id: "1",
@@ -94,23 +103,14 @@ const list_material = [
 ]
 
 const schema = object({
-  category: 
-    array()
-    .of(string().required("Выберите категорию")),
-  price_min: 
-    string()
-    .required("Введите минимальную цену"),
-  price_max: 
-    string()
-    .required("Введите максимальную цену"),
-  color:
-    array()
-    .of(string().required("Выберите цвет")),
-  material: 
-    array()
-    .of(string().required("Выберите материал")),
+  category: array().required(),
+  price_min: string().required("Введите минимальную цену"),
+  price_max: string().required("Введите максимальную цену"),
+  color: array().of(string().required("Выберите цвет")).required(),
+  material: array().of(string().required("Выберите материал")).required(),
   sort: string().required("Выберите сортировку")
-})
+});
+
 
 export default function Home() {
   const {
@@ -120,7 +120,7 @@ export default function Home() {
     setValue,
     handleSubmit,
     formState: {errors}
-  } = useForm({
+  } = useForm<Form>({
     defaultValues: {
       category: [],
       price_min: "",
@@ -129,8 +129,16 @@ export default function Home() {
       material: [],
       sort: ""
     },
-    resolver: yupResolver(schema)
+    // resolver: yupResolver(schema)
   }) 
+
+  const onSubmit = async (data: any) => {
+    console.log(data)
+  }
+
+  const funcHandleSubmit = handleSubmit(onSubmit);
+
+
 
   return (
     <Container>
@@ -142,16 +150,16 @@ export default function Home() {
       <div className="flex justify-between">
         <div className="flex gap-5">
           <CustomSelect placeholder="Категория" >
-            <SelectListCheckbox data={list_category}/>
+            <SelectListCheckbox control={control} name="category" funcHandleSubmit={funcHandleSubmit} data={list_category}/>
           </CustomSelect>
           <CustomSelect placeholder="Цена">
             <SelectRange control={control} name_1="price_min" name_2="price_max" />
           </CustomSelect>
           <CustomSelect placeholder="Цвет" >
-            <SelectListCheckbox data={list_color}/>
+            <SelectListCheckbox control={control} name="color" funcHandleSubmit={funcHandleSubmit} data={list_color}/>
           </CustomSelect>
           <CustomSelect placeholder="Материал" >
-            <SelectListCheckbox data={list_material}/>
+            <SelectListCheckbox control={control} name="material" funcHandleSubmit={funcHandleSubmit} data={list_material}/>
           </CustomSelect>
         </div>
         <CustomSelect type={"outline"} placeholder="Сортировать">
