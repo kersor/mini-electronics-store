@@ -13,7 +13,7 @@ import { Product } from "@/components/shared/product/Product";
 import { IFilters } from "@/types/filters";
 import { ISelect } from "@/types/select";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { array, object, string } from "yup";
@@ -133,8 +133,18 @@ export default function Home() {
   }) 
 
   const onSubmit = async (data: any) => {
+    if (+getValues('price_min') > +getValues('price_max')) {
+      const min = getValues('price_min')
+      const max = getValues('price_max')
+
+      setValue("price_min", max)
+      setValue("price_max", min)
+    }
+    
     console.log(data)
   }
+
+
 
   const funcHandleSubmit = handleSubmit(onSubmit);
 
@@ -153,7 +163,7 @@ export default function Home() {
             <SelectListCheckbox control={control} name="category" funcHandleSubmit={funcHandleSubmit} data={list_category}/>
           </CustomSelect>
           <CustomSelect placeholder="Цена">
-            <SelectRange control={control} name_1="price_min" name_2="price_max" />
+            <SelectRange control={control} name_min="price_min" name_max="price_max" funcHandleSubmit={funcHandleSubmit} value_min={getValues("price_min")} value_max={getValues("price_max")} />
           </CustomSelect>
           <CustomSelect placeholder="Цвет" >
             <SelectListCheckbox control={control} name="color" funcHandleSubmit={funcHandleSubmit} data={list_color}/>
