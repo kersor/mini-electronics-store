@@ -33,7 +33,8 @@ export const CustomInput = <T extends FieldValues>({
     control,
     rules,
     placeholder,
-    label
+    label,
+    error
 }: Props<T>) => {
     const typeInput: Record<typeInput, string> = {
         text: "text",
@@ -62,7 +63,8 @@ export const CustomInput = <T extends FieldValues>({
             render={({ field }) => (
                 <div className='flex flex-col gap-1'> 
                     {label && <div className='text-[13px]'>{label}</div>}
-                    <div className={clsx("bg-[#f6f7f9] py-1 px-3 rounded-lg w-full", classNameBox)}>
+                    <div className={clsx("bg-[#f6f7f9] py-1 px-3 rounded-lg w-full  relative", classNameBox, error && styles.error)}>
+                        {error && <div className={styles.error_text}>{error}</div>}
                         <input 
                             className={clsx(
                                 "bg-[#f6f7f9] outline-0 w-full", 

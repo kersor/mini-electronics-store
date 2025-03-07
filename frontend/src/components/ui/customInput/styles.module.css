@@ -1,0 +1,7 @@
+.error {
+    @apply border border-red-600;
+}
+
+.error_text {
+    @apply absolute top-0 left-0 text-red-600 text-[12px] translate-x-[10px] ;
+}
