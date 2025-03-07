@@ -61,8 +61,13 @@ export const Register = ({
     }
 
     useEffect(() => {
-        clearErrors('root');
+        clearErrors();
     }, [watch('email'), watch('password'), watch('phone'), watch('name')]); 
+
+    const funcOnClickState = () => {
+        setState('login')
+        clearErrors()
+    }
     
 
     return (
@@ -73,7 +78,7 @@ export const Register = ({
             <div className={styles.auth_component}>
                 <div>
                     <div className='text-[25px] font-black'>Регистрация</div>
-                    <div onClick={() => setState('login')} className='text-[14px] mt-2.5'>Есть аккаунт? <span className="cursor-pointer border-b border-[#000] font-medium">Войти в аккаунт</span></div>
+                    <div onClick={funcOnClickState} className='text-[14px] mt-2.5'>Есть аккаунт? <span className="cursor-pointer border-b border-[#000] font-medium">Войти в аккаунт</span></div>
                 </div>
                 <div className='flex flex-col gap-3 mt-10'>
                     <CustomInput<Form> 
