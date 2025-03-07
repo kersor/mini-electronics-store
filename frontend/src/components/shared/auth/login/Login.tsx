@@ -22,7 +22,7 @@ const schema = object({
         string()
         .required('Введите Email'),
     password: 
-        string().min(8, "Минимальное количество символов 8")
+        string()
         .required('Введите пароль'),
 })
 

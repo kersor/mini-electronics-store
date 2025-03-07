@@ -4,9 +4,9 @@ import { CustomInput } from '@/components/ui/customInput/CustomInput'
 import { useForm } from 'react-hook-form'
 import { TypeStateAuth } from '@/types/stateAuth'
 import { Dispatch, SetStateAction, useEffect } from 'react'
-import usePhoneNumber from '@/hooks/usePhoneNumber'
 import { object, string } from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup';
+import { usePhoneNumber } from '@/hooks/usePhoneNumber'
 
 interface Form {
     email: string
@@ -25,10 +25,11 @@ const schema = object({
         string()
         .required('Введите Email'),
     password: 
-        string().min(8, "Минимальное количество символов 8")
+        string()
         .required('Введите пароль'),
     phone: 
         string()
+        .min(18, "Введите корректный номер")
         .required('Введите телефон'),
     name: 
         string()
@@ -45,6 +46,7 @@ export const Register = ({
         handleSubmit,
         watch,
         clearErrors,
+        getValues,
         formState: {errors}
      } = useForm<Form>({
         defaultValues: {
@@ -59,6 +61,7 @@ export const Register = ({
     const onSubmit = async (data: any) => {
         console.log(data)
     }
+
 
     useEffect(() => {
         clearErrors();
@@ -102,10 +105,15 @@ export const Register = ({
                     <CustomInput<Form> 
                         control={control} 
                         name="phone" 
-                        type='number'
+                        type='text'
                         classNameBox='py-3'
                         classNameInput='text-[14px]'
                         label='Телефон'
+                        onChange={(e) => {
+                            const phone = usePhoneNumber(e)
+                            setValue('phone', phone)
+                            console.log(phone)
+                        }}
                         error={errors.phone?.message}
                     />
                     <CustomInput<Form> 

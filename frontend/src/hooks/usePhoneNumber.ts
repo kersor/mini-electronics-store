@@ -1,31 +1,35 @@
-import { useState, useEffect } from 'react';
+export const usePhoneNumber = (value: string) => {
+  // Удаляем все нецифровые символы, кроме "+"
+  const digits = value.replace(/[^\d+]/g, "");
 
-const usePhoneNumber = (initialValue = '') => {
-  const [phoneNumber, setPhoneNumber] = useState(initialValue);
+  // Если поле пустое, возвращаем пустую строку
+  if (!digits) return "";
 
-  useEffect(() => {
-    setPhoneNumber(formatPhoneNumber(initialValue));
-  }, [initialValue]);
+  // Если пользователь удаляет "+7", позволяем полностью очистить поле
+  if (digits === "+") return "";
 
-  // Функция для форматирования номера
-  const formatPhoneNumber = (value: string) => {
-    // Убираем все символы, кроме цифр
-    let cleaned = value.replace(/\D/g, '');
+  // Если пользователь удалил "+7" или начинает с другой цифры, добавляем "+7"
+  if (!digits.startsWith("+7")) {
+      return `+7 ${digits.replace(/^\+/, "").slice(0, 10)}`; // Ограничение до 10 цифр
+  }
 
-    // Форматируем в международный формат (пример: +7 (123) 456-78-90)
-    if (cleaned.length <= 3) {
-      return `+7 (${cleaned}`;
-    }
-    if (cleaned.length <= 6) {
-      return `+7 (${cleaned.slice(0, 3)}) ${cleaned.slice(3)}`;
-    }
-    if (cleaned.length <= 10) {
-      return `+7 (${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6, 8)}-${cleaned.slice(8, 10)}`;
-    }
-    return `+7 (${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6, 8)}-${cleaned.slice(8, 10)}`;
-  };
+  // Удаляем префикс "+7" для дальнейшей обработки
+  const phoneDigits = digits.slice(2);
 
-  return phoneNumber;
-};
+  // Добавляем форматирование
+  let formatted = "+7";
+  if (phoneDigits.length > 0) {
+      formatted += ` (${phoneDigits.slice(0, 3)}`;
+  }
+  if (phoneDigits.length >= 4) {
+      formatted += `) ${phoneDigits.slice(3, 6)}`;
+  }
+  if (phoneDigits.length >= 7) {
+      formatted += `-${phoneDigits.slice(6, 8)}`;
+  }
+  if (phoneDigits.length >= 9) {
+      formatted += `-${phoneDigits.slice(8, 10)}`;
+  }
 
-export default usePhoneNumber;
+  return formatted;
+}
