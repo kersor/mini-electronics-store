@@ -1,4 +1,4 @@
-    import React, { Dispatch, SetStateAction, useState } from 'react';
+    import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
     import styles from './styles.module.css';
     import { Control, Controller, FieldValues, Path } from 'react-hook-form';
 
@@ -23,7 +23,6 @@
         checkboxValues,
         setCheckboxValues
 }: Props<T>) => {
-        
         const [checked, setChecked] = useState(false)
 
         const funcOnChange = (value: string, field: any) => {
@@ -32,6 +31,10 @@
 
             field.onChange(result)
         }
+
+        useEffect(() => {
+            if (!checkboxValues.length) setChecked(false)
+        }, [checkboxValues])
 
         const funcOnChangeCheckbox = (value: string) => {
             if(!!checkboxValues.length) {

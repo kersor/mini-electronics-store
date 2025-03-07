@@ -10,22 +10,13 @@ import { CustomRadioButton } from "@/components/ui/customRadioButton/CustomRadio
 import { CustomSelect } from "@/components/ui/customSelect/customSelect";
 import { Product } from "@/components/shared/product/Product";
 
-import { IFilters } from "@/types/filters";
 import { ISelect } from "@/types/select";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { array, object, string } from "yup";
-
-interface Form {
-  category: string[]
-  price_min: string
-  price_max: string
-  color: string[]
-  material: string[]
-  sort: string
-}
+import { IFormFilters } from "@/types/filters";
 
 const list_category = [
   {
@@ -120,7 +111,7 @@ export default function Home() {
     setValue,
     handleSubmit,
     formState: {errors}
-  } = useForm<Form>({
+  } = useForm<IFormFilters>({
     defaultValues: {
       category: [],
       price_min: "",
@@ -160,7 +151,14 @@ export default function Home() {
       <div className="flex justify-between">
         <div className="flex gap-5">
           <CustomSelect placeholder="Категория" >
-            <SelectListCheckbox control={control} name="category" funcHandleSubmit={funcHandleSubmit} data={list_category}/>
+            <SelectListCheckbox 
+              getValues={getValues('category')} 
+              cleanValue={() => setValue('category', [])} 
+              control={control} 
+              name="category" 
+              funcHandleSubmit={funcHandleSubmit} 
+              data={list_category}
+            />
           </CustomSelect>
           <CustomSelect placeholder="Цена">
             <SelectRange control={control} name_min="price_min" name_max="price_max" funcHandleSubmit={funcHandleSubmit} value_min={getValues("price_min")} value_max={getValues("price_max")} />

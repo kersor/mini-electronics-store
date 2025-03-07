@@ -1,7 +1,8 @@
 import { CustomButton } from "@/components/ui/customButton/CustomButton"
 import { CustomCheckbox } from "@/components/ui/customCheckbox/CustomCheckbox"
-import { PropsWithChildren, useState } from "react"
-import { Control, FieldValues, Path } from "react-hook-form"
+import { IFormFilters } from "@/types/filters"
+import { PropsWithChildren, useEffect, useState } from "react"
+import { Control, FieldValues, Path, UseFormSetValue } from "react-hook-form"
 
 interface IData {
     id: string
@@ -16,6 +17,8 @@ interface Props <T extends FieldValues> {
     className?: string
     data: IData[]
     funcHandleSubmit: () => void
+    getValues: string[]
+    cleanValue: () => void
 }
 
 export const SelectListCheckbox = <T extends FieldValues>({
@@ -25,12 +28,24 @@ export const SelectListCheckbox = <T extends FieldValues>({
 
     control,
     name,
-    rules
+    rules,
+    cleanValue
 }: Props<T>) => {
     const [checkboxValues, setCheckboxValues] = useState<string[]>([])
+    const [cleanButton, setCleanButton] = useState(false)
+
+    useEffect(() => {
+        if (!!checkboxValues.length) {
+            setCleanButton(true)
+        }
+    }, [checkboxValues])
+
+    const funcCleanState = () => {
+        cleanValue()
+        setCheckboxValues(prev => [])
+        setCleanButton(false)
+    }
     
-
-
     return (
         <>
             {data.map(item => (
@@ -46,7 +61,10 @@ export const SelectListCheckbox = <T extends FieldValues>({
                     setCheckboxValues={setCheckboxValues}
                 />
             ))}
-            <CustomButton className="mt-5 min-w-[200px]" title="Готово" onClick={funcHandleSubmit} />
+            <div className="flex gap-1 min-w-[200px]">
+                <CustomButton title="Готово" onClick={funcHandleSubmit} />
+                {cleanButton && <CustomButton onClick={funcCleanState} className="!bg-[#d4d4d4] !border-[#d4d4d4]" title="Сбросить" />}
+            </div>
         </>
     )
 }
