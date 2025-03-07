@@ -1,0 +1,13 @@
+.auth {
+    @apply w-full h-screen p-5 flex justify-center items-center ;
+}
+
+.auth_media {
+    @apply w-[50%] bg-[#9bb8a1] h-full rounded-l-xl ;
+}
+
+.auth_body {
+    @apply relative w-full max-w-[1000px] mx-auto h-[70%] rounded-xl;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+    overflow: hidden
+}
