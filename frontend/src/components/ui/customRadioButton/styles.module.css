@@ -25,6 +25,6 @@
     @apply leading-none;
 }
 
-.radio:checked + .label_title {
+/* .radio:checked + .label_title {
     @apply font-bold;
-}
+} */

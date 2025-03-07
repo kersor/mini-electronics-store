@@ -1,36 +1,56 @@
 import { useState } from 'react'
 import styles from './styles.module.css'
 import clsx from 'clsx'
+import { Control, Controller, FieldValues, Path } from 'react-hook-form'
 
-interface Props {
+interface Props<T extends FieldValues> {
     className?: string
     active?: boolean
-    value: string
     onChange: (val: string) => void
-    label: string,
     checked: string,
     vsbSircle?: boolean
+    name: Path<T>
+    control: Control<T>; 
+    item: any
 }
 
-export const CustomRadioButton = ({
+export const CustomRadioButton = <T extends FieldValues>({
     className,
     active = false,
     onChange,
-    value,
-    label,
     checked,
-    vsbSircle = true
-}: Props) => {
+    vsbSircle = true,
+    name,
+    control,
+    item
+}: Props<T>) => {
 
-    const funcOnChange = (value: string) => {
+    const funcOnChange = (value: string, field: any) => {
         onChange(value)
+        field.onChange(value)
     }
 
     return (
-        <label className={styles.label}>
-            <input onChange={(e) => funcOnChange(e.target.value)} value={value} type="radio" checked={checked === value} className={styles.radio} />
-            {vsbSircle && <span className={styles.radioStyle}></span>}
-            <span className={clsx(styles.label_title, vsbSircle ? "ml-7" : "")}>{label}</span>
-        </label>
+        <Controller
+            name={name}
+            control={control}
+            render={({ field }) => (
+                <label className={styles.label}>
+                    <input 
+                        {...field} 
+                        onChange={(e) => funcOnChange(e.target.value, field)} 
+                        type="radio"
+                        value={item.id}
+                        className={styles.radio} 
+                    />
+                    {vsbSircle && <span className={styles.radioStyle}></span>}
+                    <span className={clsx(
+                        styles.label_title, 
+                        field.value === item.id && "font-bold",
+                        vsbSircle ? "ml-7" : ""
+                    )}>{item.title}</span>
+                </label>
+            )}
+        />
     )
 }

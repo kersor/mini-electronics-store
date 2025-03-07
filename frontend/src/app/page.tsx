@@ -127,7 +127,7 @@ export default function Home() {
       price_max: "",
       color: [],
       material: [],
-      sort: ""
+      sort: sort[0].id
     },
     // resolver: yupResolver(schema)
   }) 
@@ -173,7 +173,7 @@ export default function Home() {
           </CustomSelect>
         </div>
         <CustomSelect type={"outline"} placeholder="Сортировать">
-            <SelectListRadioButton data={sort}/>
+            <SelectListRadioButton control={control} name="sort" data={sort} funcHandleSubmit={funcHandleSubmit}/>
         </CustomSelect>
       </div>
       <div className="text-[21px] font-bold mt-8 mb-4">Наушники для вас!</div>
