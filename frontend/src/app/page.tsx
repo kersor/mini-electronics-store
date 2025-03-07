@@ -14,6 +14,9 @@ import { IFilters } from "@/types/filters";
 import { ISelect } from "@/types/select";
 import Image from "next/image";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { array, object, string } from "yup";
 
 const list_category = [
   {
@@ -90,10 +93,45 @@ const list_material = [
   },
 ]
 
-
-
+const schema = object({
+  category: 
+    array()
+    .of(string().required("Выберите категорию")),
+  price_min: 
+    string()
+    .required("Введите минимальную цену"),
+  price_max: 
+    string()
+    .required("Введите максимальную цену"),
+  color:
+    array()
+    .of(string().required("Выберите цвет")),
+  material: 
+    array()
+    .of(string().required("Выберите материал")),
+  sort: string().required("Выберите сортировку")
+})
 
 export default function Home() {
+  const {
+    control,
+    getValues,
+    watch,
+    setValue,
+    handleSubmit,
+    formState: {errors}
+  } = useForm({
+    defaultValues: {
+      category: [],
+      price_min: "",
+      price_max: "",
+      color: [],
+      material: [],
+      sort: ""
+    },
+    resolver: yupResolver(schema)
+  }) 
+
   return (
     <Container>
       <div className="w-full h-[300px] bg-[#9bb8a1] rounded-[5px] mt-5 relative">
@@ -107,7 +145,7 @@ export default function Home() {
             <SelectListCheckbox data={list_category}/>
           </CustomSelect>
           <CustomSelect placeholder="Цена">
-            <SelectRange />
+            <SelectRange control={control} name_1="price_min" name_2="price_max" />
           </CustomSelect>
           <CustomSelect placeholder="Цвет" >
             <SelectListCheckbox data={list_color}/>
