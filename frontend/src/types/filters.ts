@@ -1,10 +1,16 @@
 import { ISelect } from "./select";
 
 export interface IFormFilters {
-    category: string[]
+    category: IFilter[] | any[]
     price_min: string
     price_max: string
-    color: string[]
-    material: string[]
+    color: IFilter[] | []
+    material: IFilter[] | []
     sort: string
+}
+
+export interface IFilter {
+    id: string,
+    title: string
+    hex?: string
 }

@@ -1,13 +1,8 @@
 import { CustomButton } from "@/components/ui/customButton/CustomButton"
 import { CustomCheckbox } from "@/components/ui/customCheckbox/CustomCheckbox"
-import { IFormFilters } from "@/types/filters"
+import { IFilter, IFormFilters } from "@/types/filters"
 import { PropsWithChildren, useEffect, useState } from "react"
 import { Control, FieldValues, Path, UseFormSetValue } from "react-hook-form"
-
-interface IData {
-    id: string
-    title: string
-}
 
 interface Props <T extends FieldValues> {
     control: Control<T>
@@ -15,9 +10,9 @@ interface Props <T extends FieldValues> {
     rules?: object;
 
     className?: string
-    data: IData[]
+    data: any[]
     funcHandleSubmit: () => void
-    getValues: string[]
+    getValues: any[]
     cleanValue: () => void
 }
 
