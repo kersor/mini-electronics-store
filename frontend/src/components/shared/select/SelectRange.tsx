@@ -43,8 +43,6 @@ export const SelectRange = <T extends FieldValues>({
         cleanValue()
         setCleanButton(false)
     }
-
-    console.log (!!max || !!min, cleanButton)
    
     return (
         <div className="flex flex-col w-full gap-2 min-w-[200px]">

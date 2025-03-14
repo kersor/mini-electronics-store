@@ -40,26 +40,42 @@ export const Filters = () => {
           price_max: checkedFilters.price_max ?? "",
           color: checkedFilters.color ?? [],
           material: checkedFilters.material ?? [],
-          sort: checkedFilters.sort ?? ""
+          sort: checkedFilters.sort.id ?? ""
         },
         // resolver: yupResolver(schema)
       }) 
 
     const onSubmit = async (data: any) => {
         if (+getValues('price_min') > +getValues('price_max')) {
-        const min = getValues('price_min')
-        const max = getValues('price_max')
-    
-        setValue("price_min", max)
-        setValue("price_max", min)
+            const min = getValues('price_min')
+            const max = getValues('price_max')
+        
+            setValue("price_min", max)
+            setValue("price_max", min)
         }
         
+        console.log(getValues('sort'))
         console.log(data)
+        console.log(getValues('sort'))
     }
     
     
     
     const funcHandleSubmit = handleSubmit(onSubmit);
+
+    useEffect(() => {
+        setValue("sort", checkedFilters.sort.id)
+    }, [checkedFilters])
+
+
+    useEffect(() => {
+        const sortTitle = filters.sort.find(sort => +sort.id === +getValues('sort'))
+        addFilter({type: "sort", data: {id: getValues('sort'), title: sortTitle?.title}})
+
+        // console.log(getValues('sort'))
+    }, [watch('sort'), filters, addFilter])
+
+
 
     return (
         <div className="flex justify-between">
@@ -106,16 +122,62 @@ export const Filters = () => {
                         value_max={getValues("price_max")}
                     />
                 </CustomSelect>
-                {/* <CustomSelect placeholder="Цвет" >
-                    <SelectListCheckbox control={control} name="color" funcHandleSubmit={funcHandleSubmit} data={list_color}/>
+                <CustomSelect 
+                    value={!!checkedFilters.color.length ? `${checkedFilters.color.length}` : ""}
+                    placeholder="Цвет" 
+                >
+                    <SelectListCheckbox
+                        getValues={getValues('color')} 
+                        cleanValue={() => {
+                            setValue('color', [])
+                            addFilter({type: "color", data: []})
+                        }} 
+                        control={control}
+                        name="color"
+                        funcHandleSubmit={() => {
+                            addFilter({type: "color", data: getValues('color')})
+                            funcHandleSubmit()
+                        }} 
+                        data={filters.color}
+                    />
                 </CustomSelect>
-                <CustomSelect placeholder="Материал" >
-                    <SelectListCheckbox control={control} name="material" funcHandleSubmit={funcHandleSubmit} data={list_material}/>
-                </CustomSelect> */}
+
+                <CustomSelect 
+                    value={!!checkedFilters.material.length ? `${checkedFilters.material.length}` : ""}
+                    placeholder="Материал" 
+                >
+                    <SelectListCheckbox
+                        getValues={getValues('material')} 
+                        cleanValue={() => {
+                            setValue('material', [])
+                            addFilter({type: "material", data: []})
+                        }} 
+                        control={control}
+                        name="material"
+                        funcHandleSubmit={() => {
+                            addFilter({type: "material", data: getValues('material')})
+                            funcHandleSubmit()
+                        }} 
+                        data={filters.material}
+                    />
+                </CustomSelect>
+
             </div>
-            {/* <CustomSelect type={"outline"} placeholder="Сортировать">
-                <SelectListRadioButton control={control} name="sort" data={sort} funcHandleSubmit={funcHandleSubmit}/>
-            </CustomSelect> */}
+            <CustomSelect 
+                value={!!checkedFilters.sort ? `${checkedFilters.sort.title}` : ""}
+                type={"outline"} 
+                placeholder="Сортировать"
+            >
+                <SelectListRadioButton
+                    getValues={getValues('sort')} 
+                    control={control}
+                    name="sort"
+                    data={filters.sort}
+                    funcHandleSubmit={() => {
+                        funcHandleSubmit()
+                    }} 
+                />
+            </CustomSelect>
         </div>
     )
 }

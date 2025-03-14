@@ -14,7 +14,7 @@ interface State {
         category: string[],
         color: IFilter[],
         material: IFilter[],
-        sort: string,
+        sort: IFilter,
         price_min: string,
         price_max: string,
     }
@@ -27,7 +27,7 @@ interface State {
 
 interface AddFilter {
     type: string
-    data: IFilter[] | string
+    data: IFilter[] | string | any
 }
 
 export const useFilters = create<State>((set, get) => ({
@@ -43,7 +43,10 @@ export const useFilters = create<State>((set, get) => ({
         category: [],
         color: [],
         material: [],
-        sort: "",
+        sort: {
+            id: "",
+            title: ""
+        },
         price_min: "",
         price_max: "",
     },

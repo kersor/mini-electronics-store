@@ -15,6 +15,7 @@ interface Props<T extends FieldValues> {
 
     className?: string
     data: IData[]
+    getValues: any
 }
 
 export const SelectListRadioButton = <T extends FieldValues>({

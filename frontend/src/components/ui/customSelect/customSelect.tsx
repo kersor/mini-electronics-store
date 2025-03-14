@@ -23,7 +23,6 @@ export const CustomSelect = ({
         outline: styles.select_placeholder__outline
     }
 
-    // console.log(value)
     return (
         <div className={styles.select}>
             {

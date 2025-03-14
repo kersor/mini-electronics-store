@@ -83,7 +83,7 @@ const list_material = [
 
 export default function Home() {
   const { filters, actions, checkedFilters } = useFilters(state => state)
-  const { addFilters } = actions
+  const { addFilters, addFilter } = actions
 
   useEffect(() => {
     const paylaod = {
@@ -96,6 +96,7 @@ export default function Home() {
     }
 
     addFilters(paylaod)
+    addFilter({type: "sort", data: {id: sort[0].id, title: sort[0].title}})
   }, []) 
 
 
