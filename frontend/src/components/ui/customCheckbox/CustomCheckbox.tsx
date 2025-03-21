@@ -50,7 +50,7 @@
             }
             else {
                 setCheckboxValues(prev => [value])
-                return value
+                return [value]
             }
         }
 
