@@ -13,15 +13,6 @@ import { array, object, string } from "yup";
 import { IFormFilters } from "@/types/filters";
 import { useFilters } from "@/zustand/filters.zustand";
 
-const schema = object({
-    category: array().required(),
-    price_min: string().required("Введите минимальную цену"),
-    price_max: string().required("Введите максимальную цену"),
-    color: array().of(string().required("Выберите цвет")).required(),
-    material: array().of(string().required("Выберите материал")).required(),
-    sort: string().required("Выберите сортировку")
-  });
-  
 
 export const Filters = () => {
     const {checkedFilters, filters, actions} = useFilters(state => state)
@@ -42,7 +33,6 @@ export const Filters = () => {
           material: checkedFilters.material ?? [],
           sort: checkedFilters.sort.id ?? ""
         },
-        // resolver: yupResolver(schema)
       }) 
 
     const onSubmit = async (data: any) => {
