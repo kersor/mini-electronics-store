@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import styles from './styles.module.css'
 import clsx from 'clsx'
 import { Control, Controller, FieldValues, Path } from 'react-hook-form'
@@ -25,10 +25,10 @@ export const CustomRadioButton = <T extends FieldValues>({
     item
 }: Props<T>) => {
 
-    const funcOnChange = (value: string, field: any) => {
-        onChange(value)
+    const funcOnChange = useCallback((value: string, field: any) => {
         field.onChange(value)
-    }
+        onChange(value)
+    }, [onChange])
 
     return (
         <Controller

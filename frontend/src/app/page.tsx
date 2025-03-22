@@ -91,13 +91,16 @@ export default function Home() {
       color: list_color,
       material: list_material,
       sort: sort,
-      price_min: "123",
-      price_max: "321"
+      price_min: "",
+      price_max: ""
     }
 
     addFilters(paylaod)
-    addFilter({type: "sort", data: {id: sort[0].id, title: sort[0].title}})
+    if (!checkedFilters.sort.id) {
+      addFilter({type: "sort", data: {id: sort[0].id, title: sort[0].title}})
+    }
   }, []) 
+
 
 
   return (

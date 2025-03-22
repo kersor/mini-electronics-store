@@ -22,6 +22,7 @@ interface State {
     actions: {
         addFilters: (paylaod: any) => void
         addFilter: (payload: AddFilter) => void
+        addFilterS: (payload: any) => void
     }
 }
 
@@ -73,6 +74,17 @@ export const useFilters = create<State>((set, get) => ({
                     }
                 }
             })
-        }
+        },
+        addFilterS: (payload: any) => {
+
+            set((set) => {
+                return {
+                    checkedFilters: {
+                        ...set.checkedFilters,
+                        ...payload
+                    }
+                }
+            })
+        },
     }
 }))

@@ -25,7 +25,7 @@ const schema = object({
 
 export const Filters = () => {
     const {checkedFilters, filters, actions} = useFilters(state => state)
-    const {addFilter} = actions
+    const {addFilter, addFilterS} = actions
     const {
         control,
         getValues,
@@ -46,35 +46,51 @@ export const Filters = () => {
       }) 
 
     const onSubmit = async (data: any) => {
+        console.log(data)
+    }
+    
+    
+    
+    const funcHandleSubmit = () => {
+        const sortTitle = filters.sort.find(sort => +sort.id === +getValues('sort'))
+
         if (+getValues('price_min') > +getValues('price_max')) {
+            addFilterS({
+                sort: {id: getValues('sort'), title: sortTitle?.title},
+                category: getValues('category'),
+                material: getValues('material'),
+                color: getValues('color'),
+                price_max: getValues('price_min'),
+                price_min: getValues('price_max')
+            })
+
+
             const min = getValues('price_min')
             const max = getValues('price_max')
         
             setValue("price_min", max)
             setValue("price_max", min)
+
+            
+        } else {
+            addFilterS({
+                sort: {id: getValues('sort'), title: sortTitle?.title},
+                category: getValues('category'),
+                material: getValues('material'),
+                color: getValues('color'),
+                price_max: getValues('price_max'),
+                price_min: getValues('price_min')
+            })
         }
-        
-        console.log(getValues('sort'))
-        console.log(data)
-        console.log(getValues('sort'))
-    }
-    
-    
-    
-    const funcHandleSubmit = handleSubmit(onSubmit);
 
+        handleSubmit(onSubmit)()
+    };
+
+
+    // Как только установили Дефолтное значение сорировки в Zusatnd, сразу в hook-form
     useEffect(() => {
-        setValue("sort", checkedFilters.sort.id)
-    }, [checkedFilters])
-
-
-    useEffect(() => {
-        const sortTitle = filters.sort.find(sort => +sort.id === +getValues('sort'))
-        addFilter({type: "sort", data: {id: getValues('sort'), title: sortTitle?.title}})
-
-        // console.log(getValues('sort'))
-    }, [watch('sort'), filters, addFilter])
-
+        if (!getValues('sort')) setValue("sort", checkedFilters.sort.id)
+    }, [checkedFilters.sort])
 
 
     return (
@@ -93,7 +109,7 @@ export const Filters = () => {
                         control={control} 
                         name="category" 
                         funcHandleSubmit={() => {
-                            addFilter({type: "category", data: getValues('category')})
+                            
                             funcHandleSubmit()
                         }} 
                         data={filters.category}
@@ -114,8 +130,6 @@ export const Filters = () => {
                             addFilter({type: "price_min", data: ''})
                         }} 
                         funcHandleSubmit={() => {
-                            addFilter({type: "price_max", data: getValues('price_max')})
-                            addFilter({type: "price_min", data: getValues('price_min')})
                             funcHandleSubmit()
                         }}
                         value_min={getValues("price_min")}
@@ -135,7 +149,7 @@ export const Filters = () => {
                         control={control}
                         name="color"
                         funcHandleSubmit={() => {
-                            addFilter({type: "color", data: getValues('color')})
+                            
                             funcHandleSubmit()
                         }} 
                         data={filters.color}
@@ -155,7 +169,7 @@ export const Filters = () => {
                         control={control}
                         name="material"
                         funcHandleSubmit={() => {
-                            addFilter({type: "material", data: getValues('material')})
+                            
                             funcHandleSubmit()
                         }} 
                         data={filters.material}
@@ -174,6 +188,7 @@ export const Filters = () => {
                     name="sort"
                     data={filters.sort}
                     funcHandleSubmit={() => {
+                        
                         funcHandleSubmit()
                     }} 
                 />
