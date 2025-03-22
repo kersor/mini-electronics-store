@@ -1,22 +1,10 @@
 "use client"
 
 import { Container } from "@/components/shared/container/Container";
-
-import { SelectListCheckbox } from "@/components/shared/select/SelectListCheckbox";
-import { SelectListRadioButton } from "@/components/shared/select/SelectListRadioButton";
-import { SelectRange } from "@/components/shared/select/SelectRange";
-import { CustomCheckbox } from "@/components/ui/customCheckbox/CustomCheckbox";
-import { CustomRadioButton } from "@/components/ui/customRadioButton/CustomRadioButton";
-import { CustomSelect } from "@/components/ui/customSelect/customSelect";
 import { Product } from "@/components/shared/product/Product";
-
-import { IFilters } from "@/types/filters";
-import { ISelect } from "@/types/select";
-import Image from "next/image";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { array, object, string } from "yup";
+import { Filters } from "@/components/shared/filters/Filters";
+import { useFilters } from "@/zustand/filters.zustand";
+import { useEffect } from "react";
 
 const list_category = [
   {
@@ -93,44 +81,27 @@ const list_material = [
   },
 ]
 
-const schema = object({
-  category: 
-    array()
-    .of(string().required("Выберите категорию")),
-  price_min: 
-    string()
-    .required("Введите минимальную цену"),
-  price_max: 
-    string()
-    .required("Введите максимальную цену"),
-  color:
-    array()
-    .of(string().required("Выберите цвет")),
-  material: 
-    array()
-    .of(string().required("Выберите материал")),
-  sort: string().required("Выберите сортировку")
-})
-
 export default function Home() {
-  const {
-    control,
-    getValues,
-    watch,
-    setValue,
-    handleSubmit,
-    formState: {errors}
-  } = useForm({
-    defaultValues: {
-      category: [],
+  const { filters, actions, checkedFilters } = useFilters(state => state)
+  const { addFilters, addFilter } = actions
+
+  useEffect(() => {
+    const paylaod = {
+      category: list_category,
+      color: list_color,
+      material: list_material,
+      sort: sort,
       price_min: "",
-      price_max: "",
-      color: [],
-      material: [],
-      sort: ""
-    },
-    resolver: yupResolver(schema)
-  }) 
+      price_max: ""
+    }
+
+    addFilters(paylaod)
+    if (!checkedFilters.sort.id) {
+      addFilter({type: "sort", data: {id: sort[0].id, title: sort[0].title}})
+    }
+  }, []) 
+
+
 
   return (
     <Container>
@@ -138,26 +109,8 @@ export default function Home() {
         <div className="absolute text-[20px] top-[50%] left-[50%] -translate-y-[50%] -translate-x-[50%] font-bold uppercase text-[#FFF] tracking-widest">Контент</div>
       </div>
       <div className="mt-10" />
+      <Filters />
 
-      <div className="flex justify-between">
-        <div className="flex gap-5">
-          <CustomSelect placeholder="Категория" >
-            <SelectListCheckbox data={list_category}/>
-          </CustomSelect>
-          <CustomSelect placeholder="Цена">
-            <SelectRange control={control} name_1="price_min" name_2="price_max" />
-          </CustomSelect>
-          <CustomSelect placeholder="Цвет" >
-            <SelectListCheckbox data={list_color}/>
-          </CustomSelect>
-          <CustomSelect placeholder="Материал" >
-            <SelectListCheckbox data={list_material}/>
-          </CustomSelect>
-        </div>
-        <CustomSelect type={"outline"} placeholder="Сортировать">
-            <SelectListRadioButton data={sort}/>
-        </CustomSelect>
-      </div>
       <div className="text-[21px] font-bold mt-8 mb-4">Наушники для вас!</div>
       <div className="grid grid-cols-4 gap-5">
         <Product favorite />

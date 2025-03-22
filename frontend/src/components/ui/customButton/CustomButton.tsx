@@ -24,10 +24,11 @@ export const CustomButton = ({
 
     return (
         <div className={clsx(
+            className, 
             "w-full py-1", 
             styles.button,
             buttonStyle[type],
-            className, 
+
         )} onClick={onClick}>{title}</div>
     )
 }

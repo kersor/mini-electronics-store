@@ -1,39 +1,65 @@
 import { CustomButton } from "@/components/ui/customButton/CustomButton"
 import { CustomCheckbox } from "@/components/ui/customCheckbox/CustomCheckbox"
-import { PropsWithChildren, useState } from "react"
+import { IFilter, IFormFilters } from "@/types/filters"
+import { PropsWithChildren, useEffect, useState } from "react"
+import { Control, FieldValues, Path, UseFormSetValue } from "react-hook-form"
 
-interface IData {
-    id: string
-    title: string
-}
+interface Props <T extends FieldValues> {
+    control: Control<T>
+    name: Path<T>
+    rules?: object;
 
-interface Props {
     className?: string
-    data: IData[]
+    data: any[]
+    funcHandleSubmit: () => void
+    getValues: any[]
+    cleanValue: () => void
 }
 
-export const SelectListCheckbox = ({
+export const SelectListCheckbox = <T extends FieldValues>({
     data,
-    className
-}: Props) => {
-    const [checkboxValues, setCheckboxValues] = useState<string[]>([])
-    
-    const funcOnChangeCheckbox = (value: string) => {
-        if(!!checkboxValues.length) {
-            const isHas = checkboxValues.includes(value)
-            isHas ? setCheckboxValues(prev => [...checkboxValues.filter(item => item !== value)]) : setCheckboxValues(prev => [...prev, value])
-        }
-        else {
-            setCheckboxValues(prev => [value])
-        }
-    }
+    className,
+    funcHandleSubmit,
 
+    control,
+    name,
+    rules,
+    cleanValue
+}: Props<T>) => {
+    const [checkboxValues, setCheckboxValues] = useState<string[]>([])
+    const [cleanButton, setCleanButton] = useState(false)
+
+    useEffect(() => {
+        if (!!checkboxValues.length) {
+            setCleanButton(true)
+        }
+    }, [checkboxValues])
+
+    const funcCleanState = () => {
+        cleanValue()
+        setCheckboxValues(prev => [])
+        setCleanButton(false)
+    }
+    
     return (
         <>
             {data.map(item => (
-                <CustomCheckbox data={item} key={item.id} value={item.id} label={item.title} onChange={funcOnChangeCheckbox} />
+                <CustomCheckbox 
+                    control={control}
+                    name={name}
+                    rules={rules}
+                    data={item}
+                    key={item.id}
+                    value={item.id}
+                    label={item.title}
+                    checkboxValues={checkboxValues}
+                    setCheckboxValues={setCheckboxValues}
+                />
             ))}
-            <CustomButton className="mt-5 min-w-[200px]" title="Готово" onClick={() => console.log(checkboxValues)} />
+            <div className="flex gap-1 min-w-[200px]">
+                <CustomButton title="Готово" onClick={funcHandleSubmit} />
+                {cleanButton && <CustomButton onClick={funcCleanState} className="!bg-[#d4d4d4] !border-[#d4d4d4]" title="Сбросить" />}
+            </div>
         </>
     )
 }

@@ -13,7 +13,7 @@ interface Props<T extends FieldValues> {
 
 
 
-    onChange?: (val: string) => void
+    onChange?: (val: string, field: any) => void
     placeholder?: string
     name: Path<T>
     control: Control<T>; 
@@ -46,12 +46,18 @@ export const CustomInput = <T extends FieldValues>({
     const funcOnChange = (val: string, field: any) => {
         if(type === 'number') {
             const numberValue = useNumber(val)
-            field.onChange(numberValue);
-            onChange && onChange(numberValue ?? "")
+            if (onChange) {
+                onChange(numberValue ?? "", field)
+            } else {
+                field.onChange(numberValue);
+            }
         }
         else {
-            field.onChange(val);
-            onChange && onChange(val ?? "")
+            if (onChange) {
+                onChange(val ?? "", field)
+            } else {
+                field.onChange(val);
+            }
         }
     }
 
