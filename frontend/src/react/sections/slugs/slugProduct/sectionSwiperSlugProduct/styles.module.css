@@ -1,0 +1,68 @@
+.wrapper {
+    max-width: 600px;
+}
+
+.mySwiper2 {
+    position: relative;
+}
+
+.mySwiper2 :global(.swiper-slide ) {
+    background: rgb(242, 242, 242);
+    border-radius: 10px;
+}
+
+.mySwiper {
+    margin-top: 10px;
+}
+
+.mySwiper :global(.swiper-slide ) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid red; */
+    width: 25%;
+    aspect-ratio: 1/1;
+    background: rgb(242, 242, 242);
+
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.mySwiper :global(.swiper-slide-thumb-active) {
+    background: rgb(228, 228, 228);
+}
+
+
+.mySwiper_btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    
+    background: rgb(209, 209, 209);
+    z-index: 100;
+
+    width: 30px;
+    height: 30px;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+}
+
+.mySwiper_btn__prev {
+    top: 50%;
+    left: 0%;
+    transform: translateX(50%);
+}
+
+.mySwiper_btn__next {
+    top: 50%;
+    right: 0%;
+    transform: translateX(-50%);
+}
+
+.mySwiper_btn__prev svg{
+    padding-right: 2px;
+}
