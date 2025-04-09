@@ -1,34 +1,63 @@
 import styles from './styles.module.css'
 import clsx from "clsx"
 
-type TypeButton = "normal" | "outline"
+type TypeSize  = "biggest" | "regular" | "compact"
+type TypeVariant = "primary" | "secondary" | "invisible" | "outlined"
 
 interface Props {
     className?: string
     title: string
     onClick: () => void
-    type?: TypeButton
+    variant?: TypeVariant
+    size?: TypeSize,
+
+    disabled?: boolean
+    fullWidth?: boolean
 }
 
 export const CustomButton = ({
     className,
     title,
     onClick,
-    type = 'normal'
+    variant = "primary",
+    size = "regular",
+
+    disabled = false,
+    fullWidth = false,
 }: Props) => {
 
-    const buttonStyle: Record<TypeButton, string> = {
-        normal: styles.button_normal,
-        outline: styles.button_outline,
+    const classNameSize: Record<TypeSize, any> = {
+        biggest: styles.biggest,
+        regular: styles.regular,
+        compact: styles.compact,
+    }
+
+    const classNames: Record<TypeVariant, any> = {
+        primary: styles.primary,
+        secondary: styles.secondary,
+        invisible: styles.invisible,
+        outlined: styles.outlined,
+    }
+
+    const style = fullWidth 
+    ? {
+        display: "block",
+        flex: "1"
+    }
+    : {
+        display: "inline-block",
     }
 
     return (
-        <div className={clsx(
-            className, 
-            "w-full py-1", 
-            styles.button,
-            buttonStyle[type],
-
-        )} onClick={onClick}>{title}</div>
+        <div onClick={onClick} style={style}>
+            <div className={clsx(
+                classNames[variant],
+                classNameSize[size],
+                disabled && styles.disabled,
+                fullWidth && styles.fullWidth
+            )}>
+                {title}
+            </div>
+        </div>
     )
 }

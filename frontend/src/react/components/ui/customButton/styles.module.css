@@ -1,13 +1,153 @@
-.button {
-    text-align: center;
+.biggest {
+    display: flex;
+    justify-content: center;
+    font-size: 18px;
+    line-height: 22px;
+    gap: 10px;
+    align-items: center;
+    padding: 13px 18px;
+    border-radius: 8px;
     cursor: pointer;
 }
 
-.button_normal {
-    border: 1px solid #9bb9a1;
-    border-radius: 5px;
-    background: #9bb9a1;
+.regular {
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+    line-height: 20px;
+    gap: 6px;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.compact {
+    display: flex;
+    justify-content: center;
+    font-size: 13px;
+    line-height: 16px;
+    gap: 4px;
+    align-items: center;
+    padding: 4px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+
+.primary {
     color: #FFF;
-    font-size: 14px;
-    font-weight: 600;
+    background: #648660;
+}
+
+.primary:hover {
+    background: #84af7f;
+}
+
+.primary:active {
+    background: #749b70;
+}
+
+.primary.disabled:hover {
+    background: #648660;
+}
+
+.primary.disabled:active {
+    background: #648660;
+}
+
+.primary.disabled {
+    opacity: 0.6;
+}
+
+
+
+.secondary {
+    color: #648660;
+    background: #EFEFEF;
+}
+
+.secondary:hover {
+    background: #EAEAEA;
+}
+
+.secondary:active {
+    background: #E5E5E5;
+}
+
+.secondary.disabled:hover {
+    background: #EFEFEF;
+}
+
+.secondary.disabled:active {
+    background: #EFEFEF;
+}
+
+.secondary.disabled {
+    opacity: 0.6;
+}
+
+
+
+.invisible {
+    color: #648660;
+    background: none;
+}
+
+.invisible:hover {
+    background: #F5F5F5;
+}
+
+.invisible:active {
+    background: #EFEFEF;
+}
+
+.invisible.disabled:hover {
+    background: none;
+}
+
+.invisible.disabled:active {
+    background: none;
+}
+
+.invisible.disabled {
+    opacity: 0.6;
+}
+
+
+
+
+.outlined {
+    color: #648660;
+    outline: 1px solid #648660;
+    background: none;
+}
+
+.outlined:hover {
+    background: #F7F7F7;
+}
+
+.outlined:active {
+    background: #EFEFEF;
+}
+
+.outlined.disabled:hover {
+    background: none;
+}
+
+.outlined.disabled:active {
+    background: none;
+}
+
+.outlined.disabled {
+    opacity: 0.6;
+}
+
+.outlined .iconLeft * {
+    color: #648660 !important;
+}
+
+
+.fullWidth {
+    justify-content: center;
 }
