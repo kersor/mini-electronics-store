@@ -1,0 +1,157 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.product_title {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.product_title,
+.product_price {
+    border-bottom: 1px solid #e3e3e3;
+    padding-bottom: 25px;
+}
+
+.product_name {
+    font-size: 30px;
+    line-height: 35px;
+    font-weight: 900;
+}
+
+.product_description {
+    font-size: 14px;
+    line-height: 19px;
+}
+
+.product_rating {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.product_rating__count {
+    font-size: 14px;
+    line-height: 19px;
+}
+
+.product_price {
+    display: flex;
+    align-items: center;
+
+    font-size: 25px;
+    line-height: 27px;
+    font-weight: 600;
+
+    font-family: "Roboto";
+}
+
+
+
+.choose_item {
+    font-weight: 700;
+}
+
+.choose_list {
+    border-bottom: 1px solid #e3e3e3;
+    padding-bottom: 25px;
+}
+
+.choose_list__color {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+.choose_item__color {
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+
+    cursor: pointer;
+}
+
+.choose_item__color__active {
+    outline: 2px solid #d4d4d4;
+    outline-offset: 1px;
+}
+
+
+
+.product_footer {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    user-select: none;
+}
+
+.product_count__wrapper {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.product_count {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background: #F6F6F6;
+    border-radius: 30px;
+}
+
+.product_count__btn,
+.product_count__number {
+
+}
+
+.product_count__number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 30px;
+}
+
+.product_count__btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    width: 70px;
+    height: 50px;
+}
+
+.product_count__btn:hover {
+    background: #ececec;
+}
+
+.product_count__btn_plus {
+    border-radius: 30px 0 0 30px;
+}
+
+.product_count__btn_minus {
+    border-radius: 0 30px 30px 0;
+}
+
+.product_count__message {
+    max-width: 140px;
+    font-size: 15px;
+    line-height: 18px;
+    font-weight: 500;
+}
+
+.product_count__message span {
+    color: #648660;
+    font-weight: 700;
+}
+
+.product_btns {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+}
