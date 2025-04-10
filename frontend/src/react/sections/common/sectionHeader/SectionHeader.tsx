@@ -27,7 +27,7 @@ export const SectionHeader = ({
                 <Link className="text-[30px] font-black text-[#648660] uppercase" href="/">LOGO</Link>
                 <div className="flex items-center gap-10">
                     <div className="flex items-center gap-2">
-                        <div onClick={() => router.push('/favorite')} className="cursor-pointer relative">
+                        <div onClick={() => router.push('/favorites')} className="cursor-pointer relative">
                             <Heart size={20} strokeWidth={1} />
                             <div className="absolute top-0 right-0 translate-x-[6px] -translate-y-[4px]">
                                 <div className="bg-[#FFF] flex items-center justify-center border border-[#242424d9] text-[12px] font-medium rounded-full min-w-[15px] h-[15px]">1</div>

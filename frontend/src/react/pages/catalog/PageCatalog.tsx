@@ -3,8 +3,9 @@
 import { CardCatalogProduct } from "@/react/components/cards/catalog/cardCatalogProduct/CardCatalogProduct";
 import { Container } from "@/react/components/containers/container/Container";
 import { SectionFilters } from "@/react/sections/catalog/sectionFilters/SectionFilters";
+import { useFavorites } from "@/store/favorites.zustand";
 import { useFilters } from "@/store/filters.zustand";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const list_category = [
   {
@@ -81,9 +82,70 @@ const list_material = [
   },
 ]
 
+
+
+const items = [
+  {
+    id: "1",
+    title: "Игровые наушники 1",
+    price: '239.00',
+    favorite: false
+  },
+  {
+    id: "2",
+    title: "Игровые наушники 2",
+    price: '239.00',
+    favorite: false
+  },
+  {
+    id: "3",
+    title: "Игровые наушники 3",
+    price: '239.00',
+    favorite: false
+  },
+  {
+    id: "4",
+    title: "Игровые наушники 4",
+    price: '239.00',
+    favorite: true
+  },
+  {
+    id: "5",
+    title: "Игровые наушники 5",
+    price: '239.00',
+    favorite: true
+  },
+  {
+    id: "6",
+    title: "Игровые наушники 6",
+    price: '239.00',
+    favorite: false
+  },
+  {
+    id: "7",
+    title: "Игровые наушники 7",
+    price: '239.00',
+    favorite: true
+  },
+  {
+    id: "8",
+    title: "Игровые наушники 8",
+    price: '239.00',
+    favorite: false
+  },
+  {
+    id: "9",
+    title: "Игровые наушники 9",
+    price: '239.00',
+    favorite: false
+  },
+]
+
 export default function PageCatalog() {
+  const favorites = useFavorites(state => state)
   const { filters, actions, checkedFilters } = useFilters(state => state)
   const { addFilters, addFilter } = actions
+  const [products, setProducts] = useState<any[]>([])
 
   useEffect(() => {
     const paylaod = {
@@ -101,6 +163,14 @@ export default function PageCatalog() {
     }
   }, []) 
 
+  useEffect(() => {
+    if (!!items.length) {
+      const favorite = items.filter((item: any) => item.favorite === true)
+      setProducts(items)
+      favorites.actions.addAllFavorites(favorite)
+    }
+  }, [items])
+
 
 
   return (
@@ -114,8 +184,8 @@ export default function PageCatalog() {
       <div className="text-[21px] font-bold mt-8 mb-4">Наушники для вас!</div>
       <div className="grid grid-cols-4 gap-5">
         {
-          [...Array(10)].map((_, idx: number) => (
-            <CardCatalogProduct key={idx} index={idx} favorite={idx == 2 ? true : false} />
+          products.map((item: any, idx: number) => (
+            <CardCatalogProduct key={item.id} data={item} />
           ))
         }
       </div>
