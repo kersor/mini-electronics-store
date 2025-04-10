@@ -57,8 +57,8 @@ export const SelectListCheckbox = <T extends FieldValues>({
                 />
             ))}
             <div className="flex gap-1 min-w-[200px]">
-                <CustomButton title="Готово" onClick={funcHandleSubmit} />
-                {cleanButton && <CustomButton onClick={funcCleanState} className="!bg-[#d4d4d4] !border-[#d4d4d4]" title="Сбросить" />}
+                <CustomButton title="Готово" onClick={funcHandleSubmit} fullWidth />
+                {cleanButton && <CustomButton onClick={funcCleanState} title="Сбросить" variant="outlined" fullWidth />}
             </div>
         </>
     )
