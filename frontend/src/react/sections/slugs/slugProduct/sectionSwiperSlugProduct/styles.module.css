@@ -1,5 +1,8 @@
 .wrapper {
     max-width: 600px;
+    position: sticky;
+    padding-top: 10px;
+    top: 0;
 }
 
 .mySwiper2 {
