@@ -32,6 +32,12 @@ export const CardCatalogProduct = ({
         favorite.actions.toggleFavorites(data)
     }
 
+    const funcOnClickToggleCart = (e: MouseEvent<HTMLDivElement>) => {
+        e.stopPropagation()
+        setIsFavorite(prev => !prev)
+        favorite.actions.toggleFavorites(data)
+    }
+
     return (
         <div className={styles.card} onClick={funcOnClick}>
             <div className="bg-[#F6F6F6] py-5 relative rounded-[10px]">
@@ -50,7 +56,7 @@ export const CardCatalogProduct = ({
                     <StarRatingGet count={3} />
                     <div className="mt-1.5 text-[#636363] text-[13px]">(121)</div>
                 </div>
-                <div className="w-full">
+                <div onClick={(e: MouseEvent<HTMLDivElement>) => funcOnClickToggleCart(e)} className="w-full">
                     <div className={styles.add_card}>В корзину</div>
                 </div>
             </div>

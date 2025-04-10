@@ -3,6 +3,7 @@
 import { CardCatalogProduct } from "@/react/components/cards/catalog/cardCatalogProduct/CardCatalogProduct";
 import { Container } from "@/react/components/containers/container/Container";
 import { SectionFilters } from "@/react/sections/catalog/sectionFilters/SectionFilters";
+import { useCart } from "@/store/cart.zustand";
 import { useFavorites } from "@/store/favorites.zustand";
 import { useFilters } from "@/store/filters.zustand";
 import { useEffect, useState } from "react";
@@ -141,8 +142,66 @@ const items = [
   },
 ]
 
+const items_cart = [
+  {
+    id: "1",
+    title: "Игровые наушники 1",
+    price: '239.00',
+    favorite: false
+  },
+  {
+    id: "2",
+    title: "Игровые наушники 2",
+    price: '239.00',
+    favorite: false
+  },
+  {
+    id: "3",
+    title: "Игровые наушники 3",
+    price: '239.00',
+    favorite: false
+  },
+  {
+    id: "4",
+    title: "Игровые наушники 4",
+    price: '239.00',
+    favorite: true
+  },
+  {
+    id: "5",
+    title: "Игровые наушники 5",
+    price: '239.00',
+    favorite: true
+  },
+  {
+    id: "6",
+    title: "Игровые наушники 6",
+    price: '239.00',
+    favorite: false
+  },
+  {
+    id: "7",
+    title: "Игровые наушники 7",
+    price: '239.00',
+    favorite: true
+  },
+  {
+    id: "8",
+    title: "Игровые наушники 8",
+    price: '239.00',
+    favorite: false
+  },
+  {
+    id: "9",
+    title: "Игровые наушники 9",
+    price: '239.00',
+    favorite: false
+  },
+]
+
 export default function PageCatalog() {
   const favorites = useFavorites(state => state)
+  const cart = useCart(state => state)
   const { filters, actions, checkedFilters } = useFilters(state => state)
   const { addFilters, addFilter } = actions
   const [products, setProducts] = useState<any[]>([])
@@ -168,6 +227,7 @@ export default function PageCatalog() {
       const favorite = items.filter((item: any) => item.favorite === true)
       setProducts(items)
       favorites.actions.addAllFavorites(favorite)
+      cart.actions.addAllCart(items_cart)
     }
   }, [items])
 
