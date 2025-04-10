@@ -7,6 +7,8 @@ import { Dispatch, SetStateAction, useEffect } from 'react'
 import { object, string } from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup';
 import { usePhoneNumber } from '@/scripts/hooks/usePhoneNumber'
+import { ArrowLeft } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 interface Form {
     email: string
@@ -40,6 +42,8 @@ export const SectionRegister = ({
     state,
     setState,
 }: Props) => {
+    const router = useRouter()
+    
     const { 
         control,
         setValue,
@@ -126,6 +130,9 @@ export const SectionRegister = ({
                         error={errors.password?.message}
                     />
                     <div onClick={handleSubmit(onSubmit)} className={clsx(styles.auth_btn, "mt-2")}>Зарегестрироваться</div>
+                </div>
+                <div onClick={() => router.push('/')} className="flex justify-center items-center gap-1 mt-5 text-[14px] text-[#69836f] font-bold cursor-pointer">
+                    <ArrowLeft size={17} strokeWidth={3} /> Вернуться назад
                 </div>
             </div>
         </div>
