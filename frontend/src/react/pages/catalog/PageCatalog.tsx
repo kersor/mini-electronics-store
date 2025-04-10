@@ -113,13 +113,11 @@ export default function PageCatalog() {
 
       <div className="text-[21px] font-bold mt-8 mb-4">Наушники для вас!</div>
       <div className="grid grid-cols-4 gap-5">
-        <CardCatalogProduct favorite />
-        <CardCatalogProduct  />
-        <CardCatalogProduct  />
-        <CardCatalogProduct  />
-        <CardCatalogProduct  />
-        <CardCatalogProduct  />
-        <CardCatalogProduct  />
+        {
+          [...Array(10)].map((_, idx: number) => (
+            <CardCatalogProduct key={idx} index={idx} favorite={idx == 2 ? true : false} />
+          ))
+        }
       </div>
     </Container>
   );

@@ -5,21 +5,28 @@ import styles from './styles.module.css'
 import clsx from "clsx"
 import { FaHeart, FaRegHeart } from "react-icons/fa"
 import { StarRatingGet } from "@/react/components/ui/starRating/StarRatingGet"
+import { useRouter } from "next/navigation"
 
 
 interface Props {
     className?: string,
-    favorite?: boolean 
+    favorite?: boolean
+    index: number
 }
 
 export const CardCatalogProduct = ({
     className,
+    index,
     favorite = false
 }: Props) => {
+    const router = useRouter()
 
+    const funcOnClick = () => {
+        router.push(`/product/${++index}`)
+    }
 
     return (
-        <div>
+        <div className={styles.card} onClick={funcOnClick}>
             <div className="bg-[#F6F6F6] py-5 relative rounded-[10px]">
                 <img className="max-w-[300px] h-auto object-cover" src="/product/1.png" alt="" />
                 <div className={clsx(styles.add_favorite)}> 
