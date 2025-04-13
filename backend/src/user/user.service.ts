@@ -10,4 +10,9 @@ export class UserService {
         const found = await this.prisma.user.findFirst({where: {email: email}})
         return found
     }
+
+    async getAllUsers () {
+        const users = await this.prisma.user.findMany()
+        return users
+    }
 }

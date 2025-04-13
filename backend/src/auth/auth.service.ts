@@ -4,12 +4,14 @@ import * as bcrypt from 'bcrypt'
 import { PrismaService } from 'src/prisma.service';
 import { UserService } from 'src/user/user.service';
 import { LoginDto } from './dto/login.dto';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
     constructor (
         readonly prisma: PrismaService,
-        readonly userService: UserService
+        readonly userService: UserService,
+        readonly jwtService: JwtService
     ) {}
 
     async register (dto: RegisterDto) {
@@ -25,7 +27,12 @@ export class AuthService {
             }
         })
 
-        return user
+        const tokens = await this.generateToken(user)
+
+        return {
+            ...user,
+            ...tokens
+        }
     }  
 
     async login (dto: LoginDto) {
@@ -35,7 +42,19 @@ export class AuthService {
         const hash = bcrypt.compareSync(dto.password, check.password)
         if (!hash) throw new HttpException("Неверная почта или пароль", HttpStatus.BAD_REQUEST)
 
+        const tokens = await this.generateToken(check)
 
-        return true
+        return {
+            ...check,
+            ...tokens
+        } 
     }  
+    
+    async generateToken (payload: any) {
+        const access_token = await this.jwtService.signAsync(payload)
+
+        return {
+            access_token: access_token
+        }
+    }
 }
