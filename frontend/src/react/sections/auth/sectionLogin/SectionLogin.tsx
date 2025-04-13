@@ -8,6 +8,7 @@ import { object, string } from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { ArrowBigLeft, ArrowLeft } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import { useLoginMutation } from '@/scripts/api/api'
 
 interface Form {
     email: string
@@ -32,6 +33,7 @@ export const SectionLogin = ({
     state,
     setState
 }: Props) => {
+    const [login] = useLoginMutation()
     const router = useRouter()
 
     const { 
@@ -48,7 +50,8 @@ export const SectionLogin = ({
         resolver: yupResolver(schema)
     })
 
-    const onSubmit = async (data: any) => {
+    const onSubmit = async (form: any) => {
+        const {data} = await login(form)
         console.log(data)
     }
 

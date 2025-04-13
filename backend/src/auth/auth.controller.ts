@@ -10,6 +10,7 @@ export class AuthController {
 
   @Post('/register')
   async register (@Body() dto: RegisterDto, @Res() res: Response) {
+    console.log(1)
     const data = await this.authService.register(dto)
     const access_token = data.access_token;
 

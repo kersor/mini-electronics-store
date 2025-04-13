@@ -9,11 +9,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { usePhoneNumber } from '@/scripts/hooks/usePhoneNumber'
 import { ArrowLeft } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import { useRegisterMutation } from '@/scripts/api/api'
 
 interface Form {
     email: string
     password: string
-    phone: string
+    // phone: string
     name: string
 }
 
@@ -29,10 +30,11 @@ const schema = object({
     password: 
         string()
         .required('Введите пароль'),
-    phone: 
-        string()
-        .min(18, "Введите корректный номер")
-        .required('Введите телефон'),
+    
+    // phone: 
+    //     string()
+    //     .min(18, "Введите корректный номер")
+    //     .required('Введите телефон'),
     name: 
         string()
         .required('Введите свое ФИО'),
@@ -42,6 +44,7 @@ export const SectionRegister = ({
     state,
     setState,
 }: Props) => {
+    const [register] = useRegisterMutation()
     const router = useRouter()
     
     const { 
@@ -52,30 +55,36 @@ export const SectionRegister = ({
         clearErrors,
         getValues,
         formState: {errors}
-     } = useForm<Form>({
+     } = useForm<Form>({ 
         defaultValues: {
             email: "",
             password: "",
-            phone: "",
+            // phone: "",
             name: ""
         },
         resolver: yupResolver(schema)
     })
 
-    const onSubmit = async (data: any) => {
+    const onSubmit = async (form: any) => {
+        const {data} = await register(form)
         console.log(data)
     }
 
 
     useEffect(() => {
         clearErrors();
-    }, [watch('email'), watch('password'), watch('phone'), watch('name')]); 
+    }, [
+        watch('email'), 
+        watch('password'),
+        // watch('phone'), 
+        watch('name')
+    ]); 
 
     const funcOnClickState = () => {
         setState('login')
         clearErrors()
     }
-    
+       
 
     return (
         <div className={clsx(
@@ -106,7 +115,7 @@ export const SectionRegister = ({
                         label='ФИО'
                         error={errors.name?.message}
                     />
-                    <CustomInput<Form> 
+                    {/* <CustomInput<Form> 
                         control={control} 
                         name="phone" 
                         type='text'
@@ -119,7 +128,7 @@ export const SectionRegister = ({
                             console.log(phone)
                         }}
                         error={errors.phone?.message}
-                    />
+                    /> */}
                     <CustomInput<Form> 
                         control={control} 
                         name="password" 

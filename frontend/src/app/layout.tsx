@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Raleway, Roboto } from "next/font/google";
 import "./globals.css";
 import { SectionHeaderLayout } from "@/react/sections/common/sectionHeader/SectionHeaderLayout";
+import StoreProvider from "./StoreProvider";
 
 const roboto = Roboto({
   subsets: ["latin", "cyrillic"],
@@ -27,10 +28,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <body className={`${raleway.className} `}>
-            <SectionHeaderLayout />
-            {children}
-      </body>
+      <StoreProvider>
+        <body className={`${raleway.className} `}>
+              <SectionHeaderLayout />
+              {children}
+        </body>
+      </StoreProvider>
     </html>
   );
 }
