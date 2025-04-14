@@ -71,6 +71,82 @@ collection:
             send: true
             store: true
           rebuildPath: true
+  - name: ROLE
+    meta:
+      id: fld_a8e6c9a61dc9426db63ace46ce7c2cce
+      created: 1744641104212
+      modified: 1744641104212
+      sortKey: -1744641104212
+    children:
+      - url: "{{ _.URL }}/role"
+        name: CREATE
+        meta:
+          id: req_b3bc88214f044bd18fb0e97de3c6df04
+          created: 1744641109241
+          modified: 1744641213542
+          isPrivate: false
+          sortKey: -1744641109241
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"title": "USER",
+            	"description": "Администратор"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.URL }}/role"
+        name: GET_ALL
+        meta:
+          id: req_577eb50413914a52b58c41f69c3f611a
+          created: 1744641227344
+          modified: 1744641246574
+          isPrivate: false
+          sortKey: -1744641227344
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.URL }}/role/1"
+        name: GET_ONE
+        meta:
+          id: req_c6fd6661a3b44d1e8a7a13211e9967a3
+          created: 1744641349548
+          modified: 1744641800168
+          isPrivate: false
+          sortKey: -1744641349548
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
 cookieJar:
   name: Default Jar
   meta:
