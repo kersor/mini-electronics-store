@@ -1,0 +1,97 @@
+type: collection.insomnia.rest/5.0
+name: MINI_ELECTRONICS_STORE
+meta:
+  id: wrk_abc25b0015554231af62863558593107
+  created: 1744453391614
+  modified: 1744639956664
+collection:
+  - name: AUTH
+    meta:
+      id: fld_c53ced8f64794b3c963207483a50f543
+      created: 1744640032988
+      modified: 1744640032988
+      sortKey: -1744640032988
+    children:
+      - url: "{{ _.URL }}/auth/register"
+        name: REGISTER
+        meta:
+          id: req_a911c87ee0b34873a1fc5434551ec507
+          created: 1744640039216
+          modified: 1744640243627
+          isPrivate: false
+          sortKey: -1744640039216
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email": "vasilev.rustik.03@mail.ru",
+            	"password": "12345",
+            	"name": "Имя"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.URL }}/auth/login"
+        name: LOGIN
+        meta:
+          id: req_55c8733a3887469db1c4a37ea8ba5d90
+          created: 1744640171121
+          modified: 1744640233176
+          isPrivate: false
+          sortKey: -1744640171121
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email": "vasilev.rustik.03@mail.ru",
+            	"password": "12345"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_f0b9d7e1f112352ce2fba90410bc431ca8c804d1
+    created: 1744639956790
+    modified: 1744640273317
+  cookies:
+    - key: access_token
+      value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ2YXNpbGV2LnJ1c3Rpay4wM0BtYWlsLnJ1IiwibmFtZSI6ItCY0LzRjyIsInBhc3N3b3JkIjoiJDJiJDExJE05Z1FJNG1nd291OGZFRVQ2TnVYYk8uNXFVZXBzNkRuSHEucVV0VVllYlBhOG5Ha1k1TGlHIiwiaWF0IjoxNzQ0NjQwMjczLCJleHAiOjE3NDQ2NDM4NzN9.wn-CIoJcbSuqxU6arPpqnZ4mYpBz7rpnPAFSvfaxSEw
+      domain: localhost
+      path: /
+      hostOnly: true
+      creation: 2025-04-14T14:17:48.741Z
+      lastAccessed: 2025-04-14T14:17:53.317Z
+      id: 7be61617-ec10-47c4-8b7e-ec3c5cf8efeb
+environments:
+  name: Base Environment
+  meta:
+    id: env_f0b9d7e1f112352ce2fba90410bc431ca8c804d1
+    created: 1744453391618
+    modified: 1744640085826
+    isPrivate: false
+  data:
+    URL: http://localhost:5000/api
