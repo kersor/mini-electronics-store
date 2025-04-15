@@ -9,6 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { ArrowBigLeft, ArrowLeft } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useLoginMutation } from '@/scripts/api/api'
+import { toast, ToastContainer } from 'react-toastify'
 
 interface Form {
     email: string
@@ -52,7 +53,13 @@ export const SectionLogin = ({
 
     const onSubmit = async (form: any) => {
         const {data} = await login(form)
-        console.log(data)
+        
+        if (!data) {
+            toast('Неверная почта или пароль', {
+                position: 'top-right',
+                type: "error"
+            })
+        }
     }
 
     useEffect(() => {
@@ -69,6 +76,7 @@ export const SectionLogin = ({
             styles.auth_container,
             state === 'login' ? styles.auth_container__active : ""
         )}>
+            <ToastContainer />
             <div className={styles.auth_component}>
                 <div>
                     <div className='text-[25px] font-black'>Войти</div>

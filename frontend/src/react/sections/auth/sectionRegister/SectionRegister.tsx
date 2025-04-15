@@ -10,6 +10,7 @@ import { usePhoneNumber } from '@/scripts/hooks/usePhoneNumber'
 import { ArrowLeft } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useRegisterMutation } from '@/scripts/api/api'
+import { ToastContainer, toast } from 'react-toastify';
 
 interface Form {
     email: string
@@ -54,6 +55,7 @@ export const SectionRegister = ({
         watch,
         clearErrors,
         getValues,
+        reset,
         formState: {errors}
      } = useForm<Form>({ 
         defaultValues: {
@@ -66,8 +68,23 @@ export const SectionRegister = ({
     })
 
     const onSubmit = async (form: any) => {
-        const {data} = await register(form)
-        console.log(data)
+        const {data, error} = await register(form)
+
+        if (data) {
+            toast('Вы прошли регистрацию !!!', {
+                position: 'top-right',
+                type: "success"
+            })
+        }
+        else {
+            toast('Пользователь с таким email есть', {
+                position: 'top-right',
+                type: "error",
+                
+            })
+        }
+
+        reset()
     }
 
 
@@ -91,6 +108,7 @@ export const SectionRegister = ({
             styles.auth_container,
             state === 'register' ? styles.auth_container__active : ""
         )}>
+            <ToastContainer />
             <div className={styles.auth_component}>
                 <div>
                     <div className='text-[25px] font-black'>Регистрация</div>
