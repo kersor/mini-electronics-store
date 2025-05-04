@@ -17,13 +17,25 @@ export class AuthService {
     async register (dto: RegisterDto) {
         const check = await this.userService.foundUserWithEmail(dto.email)
 
-        if (check)  throw new HttpException("Пользователь с такой почтой найден", HttpStatus.BAD_REQUEST)
+        if (check) throw new HttpException("Пользователь с такой почтой найден", HttpStatus.BAD_REQUEST)
+
+        const role = await this.prisma.role.findFirst({where: {title: "USER"}})
+
+        if (!role) throw new HttpException("Роль не была найдена", HttpStatus.BAD_REQUEST)
+
         const hash = bcrypt.hashSync(dto.password, 11)
+
+
 
         const user = await this.prisma.user.create({
             data: {
                 ...dto,
-                password: hash
+                password: hash,
+                roles: {
+                    create: {
+                        roleId: role.id
+                    }
+                }
             }
         })
 
