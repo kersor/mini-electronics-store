@@ -5,5 +5,12 @@ import { PrismaClient } from '@prisma/client';
 export class PrismaService extends PrismaClient implements OnModuleInit {
   async onModuleInit() {
     await this.$connect();
+    await this.role.createMany({
+      data: [ 
+        {title: "ADMIN", description: "Администратор"},
+        {title: "USER", description: "Пользователь"}
+      ],
+      skipDuplicates: true
+    })
   }
 }
