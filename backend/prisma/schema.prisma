@@ -8,6 +8,7 @@ datasource db {
 }
 
 
+// + ---------- USER ---------- + //
 model User {
   id    Int     @default(autoincrement()) @id
   email String  @unique
@@ -15,8 +16,14 @@ model User {
   password String
 
   roles UsersOnRoles[]
+  rating Rating[]
+  favorite Favorites?
+  cart Cart?
 }
 
+
+
+// + ---------- ROLE ---------- + //
 model Role {
   id    Int     @default(autoincrement()) @id
   title String  @unique
@@ -25,6 +32,7 @@ model Role {
   users UsersOnRoles[]
 }
 
+// + ---------- USERS_ON_ROLES ---------- + //
 model UsersOnRoles {
   user User @relation(fields: [userId], references: [id])
   userId Int 
@@ -33,4 +41,135 @@ model UsersOnRoles {
   roleId Int
 
   @@id([userId, roleId])
+}
+
+
+
+// + ---------- FAVORITES ---------- + //
+model Favorites {
+  id Int @default(autoincrement()) @id
+  
+  products FavoritesProudct[]
+
+  user User @relation(fields: [userId], references: [id])
+  userId Int @unique
+}
+
+// + ---------- FAVORITES_PRODUCT ---------- + //
+model FavoritesProudct {
+  favorite Favorites @relation(fields: [favoriteId], references: [id])
+  favoriteId Int
+
+  product Product @relation(fields: [productId], references: [id])
+  productId Int
+
+  @@id([favoriteId, productId])
+}
+
+
+
+// + ---------- CART ---------- + //
+model Cart {
+  id Int @default(autoincrement()) @id
+  
+  products CartProuduct[]
+
+  user User @relation(fields: [userId], references: [id])
+  userId Int @unique
+}
+
+
+
+// + ---------- CART_PRODUCT ---------- + //
+model CartProuduct {
+  cart Cart @relation(fields: [cartId], references: [id])
+  cartId Int
+
+  product Product @relation(fields: [productId], references: [id])
+  productId Int
+
+  @@id([cartId, productId])
+}
+
+
+
+
+// + ---------- PRODUCT ---------- + //
+model Product {
+  id Int @default(autoincrement()) @id
+  name String
+  description String
+  price String
+
+
+  favorites FavoritesProudct[]
+  carts CartProuduct[]
+  photos Photos[]
+  rating Rating[]
+  count Count?
+
+  characteristics ProductCharacteristics[]
+}
+
+
+
+// + ---------- PHOTOS ---------- + //
+model Photos {
+  id Int @default(autoincrement()) @id
+  photo String
+
+  product Product @relation(fields: [productId], references: [id])
+  productId Int
+}
+
+
+
+// + ---------- COUNT ---------- + //
+model Count {
+  id Int @default(autoincrement()) @id
+  count Int
+
+  product Product @relation(fields: [productId], references: [id])
+  productId Int @unique
+}
+
+
+
+// + ---------- PRODUCT_CHARACTERISTICS ---------- + //
+model ProductCharacteristics {
+  product Product @relation(fields: [productId], references: [id])
+  productId Int
+
+  characteristic Characteristics @relation(fields: [characteristicId], references: [id])
+  characteristicId Int
+
+  value String
+
+  @@id([characteristicId, productId])
+}
+
+
+
+// + ---------- CHARACTERISTICS ---------- + //
+model Characteristics {
+  id Int @default(autoincrement()) @id
+  name String
+  type String
+
+  product ProductCharacteristics[]
+}
+
+
+
+// + ---------- RATING ---------- + //
+model Rating {
+  product Product @relation(fields: [productId], references: [id])
+  productId Int
+
+  user User @relation(fields: [userId], references: [id])
+  userId Int
+
+  count Int
+
+  @@id([userId, productId])
 }
