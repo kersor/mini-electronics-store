@@ -39,6 +39,26 @@ export class AuthService {
             }
         })
 
+        await this.prisma.favorites.create({
+            data: {
+                user: {
+                    connect: {
+                        id: user.id
+                    }
+                }
+            }
+        })
+
+        await this.prisma.cart.create({
+            data: {
+                user: {
+                    connect: {
+                        id: user.id
+                    }
+                }
+            }
+        })
+
         const tokens = await this.generateToken(user)
 
         return {
