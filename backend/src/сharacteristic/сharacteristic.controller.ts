@@ -1,0 +1,24 @@
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { СharacteristicService } from './сharacteristic.service';
+import { CharacteristicCreateDto } from './dto/create.dto';
+
+@Controller('characteristic')
+export class СharacteristicController {
+  constructor(private readonly сharacteristicService: СharacteristicService) {}
+
+  @Post()
+  async createCharacteristic (@Body() dto: CharacteristicCreateDto) {
+    return this.сharacteristicService.createCharacteristic(dto)
+  }
+
+  @Get()
+  async getAllCharacteristic () {
+    return this.сharacteristicService.getAllCharacteristic()
+  }
+
+  @Get(":id")
+  async getOneCharacteristic (@Param("id") id: string) {
+    return this.сharacteristicService.getOneCharacteristic(id)
+  }
+
+}

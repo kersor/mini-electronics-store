@@ -39,7 +39,7 @@ export class AuthService {
             }
         })
 
-        await this.prisma.favorites.create({
+        await this.prisma.favorite.create({
             data: {
                 user: {
                     connect: {
