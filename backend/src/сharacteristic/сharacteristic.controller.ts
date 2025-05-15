@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { СharacteristicService } from './сharacteristic.service';
 import { CharacteristicCreateDto } from './dto/create.dto';
 
@@ -19,6 +19,11 @@ export class СharacteristicController {
   @Get(":id")
   async getOneCharacteristic (@Param("id") id: string) {
     return this.сharacteristicService.getOneCharacteristic(id)
+  }
+
+  @Delete(":id")
+  async deleteOneCharacteristic (@Param("id") id: string) {
+    return this.сharacteristicService.deleteOneCharacteristic(id)
   }
 
 }

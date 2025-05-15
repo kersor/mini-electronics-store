@@ -35,4 +35,10 @@ export class СharacteristicService {
         })
         return characteristic
     }
+
+    async deleteOneCharacteristic (id: string) {
+        await this.prisma.characteristics.delete({
+            where: {id: +id}
+        })
+    }
 }
