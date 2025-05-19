@@ -8,8 +8,9 @@ import { object, string } from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { ArrowBigLeft, ArrowLeft } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { useLoginMutation } from '@/scripts/api/api'
 import { toast, ToastContainer } from 'react-toastify'
+import { useUser } from '@/store/user.zustand'
+import { useLoginMutation } from '@/scripts/api/auth/authApi'
 
 interface Form {
     email: string
@@ -34,6 +35,7 @@ export const SectionLogin = ({
     state,
     setState
 }: Props) => {
+    const {setUser} = useUser(state => state)
     const [login] = useLoginMutation()
     const router = useRouter()
 
@@ -59,6 +61,10 @@ export const SectionLogin = ({
                 position: 'top-right',
                 type: "error"
             })
+        } else {
+            const {access_token, ...dta} = data
+            setUser(dta)
+            router.push('/')
         }
     }
 

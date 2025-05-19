@@ -1,12 +1,7 @@
-// Need to use the React-specific entry point to allow generating React hooks
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { isNumberObject } from "util/types";
+import { rootApi } from "../rootApi";
 
-export const api = createApi({
-    reducerPath: 'api',
-    baseQuery: fetchBaseQuery({ 
-        baseUrl: 'http://localhost:5000/api', 
-        credentials: 'include',
-    }),
+export const authApi = rootApi.injectEndpoints({
     endpoints: (build) => ({
         register: build.mutation<any, any>({
             query: (body: any) => ({
@@ -22,10 +17,11 @@ export const api = createApi({
                 body: body
             }),
         }),
-    }),
+    })
 })
 
-export const { 
-    useRegisterMutation,
-    useLoginMutation
-} = api
+export const {
+    useLoginMutation,
+    useRegisterMutation
+} = authApi
+

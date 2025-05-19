@@ -9,8 +9,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { usePhoneNumber } from '@/scripts/hooks/usePhoneNumber'
 import { ArrowLeft } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { useRegisterMutation } from '@/scripts/api/api'
 import { ToastContainer, toast } from 'react-toastify';
+import { useRegisterMutation } from '@/scripts/api/auth/authApi'
 
 interface Form {
     email: string

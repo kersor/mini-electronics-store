@@ -1,10 +1,12 @@
 "use client"
 
 import { Container } from "@/react/components/containers/container/Container"
+import { CustomButton } from "@/react/components/ui/customButton/CustomButton"
+import { useUser } from "@/store/user.zustand"
 import { Heart, ShoppingBag, User, UserRound } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
+import React, { useMemo, useState } from "react"
 import { FaRegHeart } from "react-icons/fa"
 import { FaRegCircleUser } from "react-icons/fa6"
 import { FiHeart, FiShoppingBag } from "react-icons/fi"
@@ -18,9 +20,18 @@ interface Props {
 export const SectionHeader = ({
     className
 }: Props) => {
+    const {user} = useUser(state => state)
     const router = useRouter()
     const [inputValue, setInputValue] = useState("")
 
+    const name = useMemo(() => {
+        if (user.name) {
+            const name = user.name.slice(0, 1)
+            return name
+        } else {
+            return null
+        }
+    }, [user])
     return (
         <header>
             <Container className="flex items-center justify-between h-[60px]">
@@ -39,9 +50,27 @@ export const SectionHeader = ({
                                 <div className="bg-[#FFF] flex items-center justify-center border border-[#242424d9] text-[12px] font-medium rounded-full min-w-[15px] h-[15px] p-0.5">12</div>
                             </div>
                         </div>
-                        <Link href="/auth" className="ml-5 cursor-pointer" >
-                            <UserRound size={20} strokeWidth={1} />
-                        </Link>
+                        {
+                            !!user.id ? (
+                                <React.Fragment>
+                                    <div className="border border-black px-2 rounded-full ml-5 relative group">
+                                        {name}
+                                        <div className="absolute top-0 left-[-100%] translate-x-[-10%] pt-[150%] z-10 hidden group-hover:block">
+                                            <div className="bg-[#FFF] p-2 shadow-lg rounded-md">
+                                                <CustomButton title="Выйти" variant="outlined" onClick={() => {}} />
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </React.Fragment>
+                            ) : (
+                                <Link href="/auth" className="ml-5 cursor-pointer" >
+                                    <UserRound size={20} strokeWidth={1} />
+                                </Link>
+                            )
+                        }
+
                     </div>
                 </div>
             </Container>

@@ -3,6 +3,7 @@ import { Raleway, Roboto } from "next/font/google";
 import "./globals.css";
 import { SectionHeaderLayout } from "@/react/sections/common/sectionHeader/SectionHeaderLayout";
 import StoreProvider from "./StoreProvider";
+import { ClientLayout } from "@/scripts/api/LayoutClient";
 
 const roboto = Roboto({
   subsets: ["latin", "cyrillic"],
@@ -30,8 +31,9 @@ export default function RootLayout({
     <html lang="ru">
       <StoreProvider>
         <body className={`${raleway.className} `}>
-              <SectionHeaderLayout />
-              {children}
+          <ClientLayout>
+            {children}
+          </ClientLayout>
         </body>
       </StoreProvider>
     </html>

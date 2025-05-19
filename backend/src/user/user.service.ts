@@ -1,10 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { UserCreateDto } from './dto/create.dto';
 import { PrismaService } from 'src/prisma.service';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UserService {
-    constructor (readonly prisma: PrismaService) {}
+    constructor (
+        readonly prisma: PrismaService,
+        readonly jwtService: JwtService
+    ) {}
 
     async foundUserWithEmail (email: string) {
         const found = await this.prisma.user.findFirst({where: {email: email}})
@@ -14,5 +18,26 @@ export class UserService {
     async getAllUsers () {
         const users = await this.prisma.user.findMany()
         return users
+    }
+
+    async getUser (token: string) {
+        const payload = await this.jwtService.verifyAsync(
+          token,
+          {
+            secret: 'key'
+          }
+        );
+
+        const {
+            id,
+            email,
+            name
+        } = payload
+
+        return {
+            id,
+            email,
+            name
+        }
     }
 }

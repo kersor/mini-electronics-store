@@ -69,9 +69,10 @@ export class AuthService {
 
     async login (dto: LoginDto) {
         const check = await this.userService.foundUserWithEmail(dto.email)
-
+        
         if (!check) throw new HttpException("Неверная почта или пароль", HttpStatus.BAD_REQUEST)
         const hash = bcrypt.compareSync(dto.password, check.password)
+
         if (!hash) throw new HttpException("Неверная почта или пароль", HttpStatus.BAD_REQUEST)
 
         const tokens = await this.generateToken(check)
