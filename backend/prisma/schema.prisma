@@ -60,7 +60,7 @@ model FavoritesProudct {
   favorite Favorite @relation(fields: [favoriteId], references: [id])
   favoriteId Int
 
-  product Product @relation(fields: [productId], references: [id])
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId Int
 
   @@id([favoriteId, productId])
@@ -85,7 +85,7 @@ model CartProuduct {
   cart Cart @relation(fields: [cartId], references: [id])
   cartId Int
 
-  product Product @relation(fields: [productId], references: [id])
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId Int
 
   @@id([cartId, productId])
@@ -121,7 +121,7 @@ model Photos {
   id Int @default(autoincrement()) @id
   photo String
 
-  product Product @relation(fields: [productId], references: [id])
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId Int
 }
 
@@ -142,9 +142,9 @@ model Category {
 // + ---------- COUNT ---------- + //
 model Count {
   id Int @default(autoincrement()) @id
-  count Int
+  count Int @default(1)
 
-  product Product @relation(fields: [productId], references: [id])
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId Int @unique
 }
 
@@ -152,7 +152,7 @@ model Count {
 
 // + ---------- PRODUCT_CHARACTERISTICS ---------- + //
 model ProductCharacteristics {
-  product Product @relation(fields: [productId], references: [id])
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId Int
 
   characteristic Characteristics @relation(fields: [characteristicId], references: [id])
@@ -178,7 +178,7 @@ model Characteristics {
 
 // + ---------- RATING ---------- + //
 model Rating {
-  product Product @relation(fields: [productId], references: [id])
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId Int
 
   user User @relation(fields: [userId], references: [id])

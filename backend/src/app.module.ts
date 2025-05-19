@@ -8,7 +8,14 @@ import { ProductModule } from './product/product.module';
 
 
 @Module({
-  imports: [UserModule, AuthModule, RoleModule, CategoryModule, СharacteristicModule, ProductModule],
+  imports: [
+    UserModule,
+    AuthModule,
+    RoleModule,
+    CategoryModule,
+    СharacteristicModule,
+    ProductModule
+  ],
   controllers: [],
   providers: [],
 })

@@ -1,6 +1,6 @@
 import { Injectable, UploadedFiles } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
-import { ProductCreateDto } from './dto/create.dto';
+import { ProductCreateDto, ProductUpdateCountDto } from './dto/create.dto';
 import { v4 as uuidv4 } from 'uuid';
 import * as path from 'path';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
@@ -20,6 +20,11 @@ export class ProductService {
                 category: {
                     connect: {
                         id: +dto.categoryId
+                    }
+                },
+                count: {
+                    create: {
+                        count: dto.count ? dto.count : 0
                     }
                 }
             }
@@ -44,8 +49,9 @@ export class ProductService {
                             characteristic: true // Включаем данные из справочника
                         }
                     },
-                
-            }
+                    count: true,
+                    category: true
+                }
         });
     }
 
@@ -89,4 +95,22 @@ export class ProductService {
             skipDuplicates: true
         })
     }
+
+    async updateProductCount (productId: string, count: ProductUpdateCountDto ) {
+        const product = await this.prisma.count.findFirst({where: {productId: +productId}})
+
+        if (product) {
+            await this.prisma.count.update({
+                where: {productId: +productId},
+                data: {
+                    count: count.count
+                }
+            })
+        }
+    }
+
+    async deleteOne (id: string) {
+        await this.prisma.product.delete({where: {id: +id}})
+    }
 }
+ 
