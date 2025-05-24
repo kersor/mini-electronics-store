@@ -5,9 +5,7 @@ import { SectionSidebarAdmin } from '../sectionSidebarAdmin/SectionSidebarAdmin'
 export const SectionAdmin = () => {
     return (
         <div className={styles.wrapper}>
-            <Container>
-                <SectionSidebarAdmin />
-            </Container>
+            Выберите пункт
         </div>
     )
 }
