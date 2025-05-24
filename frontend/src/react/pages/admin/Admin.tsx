@@ -3,6 +3,7 @@
 import { useUser } from '@/store/user.zustand'
 import styles from './styles.module.css'
 import { useRouter } from 'next/navigation'
+import { SectionAdmin } from '@/react/sections/admin/sectionAdmin/SectionAdmin'
 
 export default function PageAdmin () {
     const router = useRouter()
@@ -10,16 +11,8 @@ export default function PageAdmin () {
 
     const isAdmin = user.isAdmin
 
-    if (isAdmin) {
-        return (
-            <div className={styles.admin}>
+    console.log(isAdmin)
 
-            </div>
-        )
-    } else {
-        router.push('/404') 
-    }
-
-
-
+    if (isAdmin === true) return <SectionAdmin />
+    else if (isAdmin === false) router.push('/404') 
 }

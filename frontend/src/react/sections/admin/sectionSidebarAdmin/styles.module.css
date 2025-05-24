@@ -1,0 +1,43 @@
+.wrapper {
+    height: 100%;
+    width: 100%;
+
+    max-width: 250px;
+
+}
+
+.admin_list {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.admin_item {
+    /* outline: 1px solid #000; */
+    border-radius: 5px;
+    padding: 5px 10px;
+
+    color: #8a9f88;
+    outline: 1px solid #8a9f88;
+    cursor: pointer;
+    font-weight: 700;
+    transition: all 0.4s ease;
+    font-size: 14px;
+}
+
+.admin_item:hover {
+    transform: translateX(10px);
+    background: #d6e8d5;
+}
+
+.admin_body {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.admin_body__title {
+    color: #6e8e6b;
+    font-weight: 900;
+    font-size: 20px;
+}
