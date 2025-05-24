@@ -14,7 +14,16 @@ export const ClientLayout = ({
 
     useEffect(() => {
         if (dataSelf) {
-            setUser(dataSelf)
+            let isAdmin = false
+
+            dataSelf.roles.map((role: any) => {
+                if (role.role.title === "ADMIN") isAdmin = true
+            })
+
+            setUser({
+                ...dataSelf,
+                isAdmin: isAdmin
+            })
         }
     }, [dataSelf])
 

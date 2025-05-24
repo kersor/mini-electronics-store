@@ -63,7 +63,18 @@ export const SectionLogin = ({
             })
         } else {
             const {access_token, ...dta} = data
-            setUser(dta)
+
+            let isAdmin = false
+
+            dta.roles.map((role: any) => {
+                if (role.role.title === "ADMIN") isAdmin = true
+            })
+
+            setUser({
+                ...dta,
+                isAdmin: isAdmin
+            })
+
             router.push('/')
         }
     }

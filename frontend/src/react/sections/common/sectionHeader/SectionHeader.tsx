@@ -3,6 +3,7 @@
 import { Container } from "@/react/components/containers/container/Container"
 import { CustomButton } from "@/react/components/ui/customButton/CustomButton"
 import { useUser } from "@/store/user.zustand"
+import { deleteCookie } from "cookies-next/client"
 import { Heart, ShoppingBag, User, UserRound } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -20,7 +21,7 @@ interface Props {
 export const SectionHeader = ({
     className
 }: Props) => {
-    const {user} = useUser(state => state)
+    const {user, setUser} = useUser(state => state)
     const router = useRouter()
     const [inputValue, setInputValue] = useState("")
 
@@ -32,6 +33,15 @@ export const SectionHeader = ({
             return null
         }
     }, [user])
+
+    const funcLogout = () => {
+        deleteCookie('access_token')
+        setUser({})
+        router.push('/')
+    }
+
+    const isAdmin = user.isAdmin
+
     return (
         <header>
             <Container className="flex items-center justify-between h-[60px]">
@@ -56,8 +66,9 @@ export const SectionHeader = ({
                                     <div className="border border-black px-2 rounded-full ml-5 relative group">
                                         {name}
                                         <div className="absolute top-0 left-[-100%] translate-x-[-10%] pt-[150%] z-10 hidden group-hover:block">
-                                            <div className="bg-[#FFF] p-2 shadow-lg rounded-md">
-                                                <CustomButton title="Выйти" variant="outlined" onClick={() => {}} />
+                                            <div className="flex flex-col gap-2 bg-[#FFF] p-2 shadow-lg rounded-md">
+                                                {isAdmin && <CustomButton title="Админ панель" variant="outlined" onClick={() => router.push('/admin')} />}
+                                                <CustomButton title="Выйти" variant="outlined" onClick={funcLogout} />
                                             </div>
                                         </div>
 

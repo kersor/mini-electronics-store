@@ -28,16 +28,21 @@ export class UserService {
           }
         );
 
-        const {
-            id,
-            email,
-            name
-        } = payload
+        const { id } = payload
 
-        return {
-            id,
-            email,
-            name
-        }
+        const user = await this.prisma.user.findFirst({
+            where: {
+                id: id
+            },
+            include: {
+                roles: {
+                    include: {
+                        role: true
+                    }
+                }
+            }
+        })
+
+        return user
     }
 }
