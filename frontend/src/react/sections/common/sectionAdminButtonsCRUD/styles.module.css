@@ -1,0 +1,7 @@
+.wrapper {
+    @apply flex items-center justify-end gap-1;
+}
+
+.wrapper > div {
+    cursor: pointer;
+}

@@ -9,7 +9,7 @@ export default function AdminLayout ({
     return (
         <Container className={styles.wrapper}>
             <SectionSidebarAdmin />
-            <div className="w-full min-h-full border border-[#828282] rounded-[10px]">
+            <div className="w-full min-h-full border border-[#828282] rounded-[10px] p-5">
                 {children}
             </div>
         </Container>

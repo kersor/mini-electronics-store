@@ -4,6 +4,8 @@ import "./globals.css";
 import { SectionHeaderLayout } from "@/react/sections/common/sectionHeader/SectionHeaderLayout";
 import StoreProvider from "./StoreProvider";
 import { ClientLayout } from "@/scripts/api/LayoutClient";
+import { ColorSchemeScript, createTheme, mantineHtmlProps, MantineProvider } from '@mantine/core';
+import '@mantine/core/styles.css';
 
 const roboto = Roboto({
   subsets: ["latin", "cyrillic"],
@@ -28,14 +30,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru">
-      <StoreProvider>
-        <body className={`${raleway.className} `}>
-          <ClientLayout>
-            {children}
-          </ClientLayout>
-        </body>
-      </StoreProvider>
+    <html lang="ru" {...mantineHtmlProps}>
+      <head>
+        <ColorSchemeScript  />
+      </head>
+      <body className={`${raleway.className} `}>
+        <StoreProvider>
+          <MantineProvider>
+            <ClientLayout>
+              {children}
+            </ClientLayout>
+          </MantineProvider>
+        </StoreProvider>
+      </body>
     </html>
   );
 }

@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { CategoryCreateDto } from './dto/create.dto';
+import { CategoryUpdateDto } from './dto/updtae.dto';
 
 @Injectable()
 export class CategoryService {
@@ -19,6 +20,15 @@ export class CategoryService {
             }
         })
     } 
+
+    async updtaeCategory (dto: CategoryUpdateDto, id: string) {
+        const result = await this.prisma.category.update({
+            where: {id: +id},
+            data: dto
+        })
+
+        return result
+    }
 
     async getAllCategory () {
         const categories = await this.prisma.category.findMany()
