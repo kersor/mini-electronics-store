@@ -9,6 +9,7 @@ type typeInput = 'text' | 'password' | 'email' | 'number'
 interface Props<T extends FieldValues> {
     classNameInput?: string
     classNameBox?: string
+    classNameWrapper?: string
     type?: typeInput
 
 
@@ -27,6 +28,7 @@ interface Props<T extends FieldValues> {
 export const CustomInput = <T extends FieldValues>({
     classNameInput,
     classNameBox,
+    classNameWrapper,
     type = 'text',
     onChange,
     name,
@@ -67,7 +69,7 @@ export const CustomInput = <T extends FieldValues>({
             control={control}
             rules={rules}
             render={({ field }) => (
-                <div className='flex flex-col gap-1'> 
+                <div className={clsx('flex flex-col gap-1', classNameWrapper)}> 
                     {label && <div className='text-[13px]'>{label}</div>}
                     <div className={clsx("bg-[#f6f7f9] py-1 px-3 rounded-lg w-full  relative", classNameBox, error && styles.error)}>
                         {error && <div className={styles.error_text}>{error}</div>}

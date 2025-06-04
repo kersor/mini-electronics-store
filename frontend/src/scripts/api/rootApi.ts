@@ -8,7 +8,8 @@ export const rootApi = createApi({
         credentials: 'include',
     }),
     tagTypes: [
-        'Category'
+        'Category',
+        'Characteristic'
     ],
     endpoints: (build) => ({
         
