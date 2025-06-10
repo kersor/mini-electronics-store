@@ -1,0 +1,17 @@
+.wrapper {
+    --mantine-primary-color-filled: rgb(35 35 35 / var(--tw-text-opacity, 1))
+}
+
+
+.input {
+    font-family: 'Raleway', 'Raleway Fallback' ;
+    border-radius: 10px;
+    border-color: rgb(235 237 236 / var(--tw-bg-opacity, 1));
+    background: rgb(235 237 236 / var(--tw-bg-opacity, 1));
+}
+
+.placeholder {
+    color: #232323;
+    font-weight: 700;
+    font-size: 14px;
+}

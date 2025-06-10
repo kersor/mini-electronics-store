@@ -12,7 +12,7 @@ export class СharacteristicService {
     async createCharacteristic (dto: CharacteristicCreateDto) {
         const checkCharacteristic = await this.prisma.characteristics.findUnique({
             where: {
-                name: dto.name
+                title: dto.title
             }
         })
 

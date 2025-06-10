@@ -21,17 +21,17 @@ export default function PageCategoryAdmin () {
         getValues
     } = useForm({
         defaultValues: {
-            name: ""
+            title: ""
         }
     })
 
     const funcCreateCategory = async () => {
-        const name = getValues('name')
+        const title = getValues('title')
         const slug = slugify('Пример категории')
 
         const payload = {
-            name: name,
-            fullName: slug
+            title: title,
+            fullTitle: slug
         }
 
         await createCategories(payload)
@@ -42,7 +42,7 @@ export default function PageCategoryAdmin () {
         <div className=''>
 
             <div className='flex gap-2 items-center max-w-[450px]'>
-                <CustomInput control={control} name="name" placeholder='Название категории' />
+                <CustomInput control={control} name="title" placeholder='Название категории' />
                 <CustomButton title='Создать' onClick={funcCreateCategory} />
             </div>
             <div className='flex flex-col gap-2 mt-5 text-[#648660]'>

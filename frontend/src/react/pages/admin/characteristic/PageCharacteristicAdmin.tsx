@@ -26,34 +26,34 @@ export default function PageCharacteristicAdmin () {
         watch
     } = useForm({
         defaultValues: {
-            name: "",
+            title: "",
             characteristicType: characteristic[0].id || ""
         }
     })
 
     const funcCreateCharacteristic = async () => {
         const payload = {
-            name: getValues('name'),
+            title: getValues('title'),
             type: getValues('characteristicType')
         }
         await createCharacteristic(payload)
     }
 
-    const nameType = watch('characteristicType')
+    const titleType = watch('characteristicType')
 
     return (
         <div className=''>
 
             <div className='flex gap-2 items-center max-w-[550px] w-full'>
-                <CustomInput classNameWrapper='w-full' control={control} name="name" placeholder='Название характеристики' />
+                <CustomInput classNameWrapper='w-full' control={control} name="title" placeholder='Название характеристики' />
                 <div className='min-w-[150px]'>
                     <CustomSelect 
-                        value={nameType || characteristic[0].id}
+                        value={titleType || characteristic[0].id}
                         type={"outline"} 
                         placeholder="Тип"
                     >
                         <SelectListRadioButton
-                            getValues={nameType} 
+                            getValues={titleType} 
                             control={control}
                             name="characteristicType"
                             data={characteristic}

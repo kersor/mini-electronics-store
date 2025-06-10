@@ -1,4 +1,4 @@
 export class CharacteristicUpdateDto {
-    name: string
+    title: string
     type: string
 }

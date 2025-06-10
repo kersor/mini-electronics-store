@@ -1,4 +1,4 @@
 export class CharacteristicCreateDto {
-    name: string
+    title: string
     type: string
 } 

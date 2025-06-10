@@ -6,7 +6,7 @@ import { Control, Controller, FieldValues, Path } from 'react-hook-form'
 interface Props<T extends FieldValues> {
     className?: string
     active?: boolean
-    onChange: (val: string) => void
+    onChange: (val: string, field: any) => void
     checked: string,
     vsbSircle?: boolean
     name: Path<T>
@@ -27,7 +27,7 @@ export const CustomRadioButton = <T extends FieldValues>({
 
     const funcOnChange = useCallback((value: string, field: any) => {
         field.onChange(value)
-        onChange(value)
+        onChange(value, field)
     }, [onChange])
 
     return (
@@ -46,7 +46,7 @@ export const CustomRadioButton = <T extends FieldValues>({
                     {vsbSircle && <span className={styles.radioStyle}></span>}
                     <span className={clsx(
                         styles.label_title, 
-                        field.value === item.id && "font-bold",
+                        +field.value === +item.id && "font-bold",
                         vsbSircle ? "ml-7" : ""
                     )}>{item.title}</span>
                 </label>

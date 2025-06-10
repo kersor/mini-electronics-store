@@ -1,4 +1,4 @@
 export class CategoryUpdateDto {
-    name: string
-    fullName: string
+    title: string
+    fullTitle: string
 }

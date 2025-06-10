@@ -10,7 +10,7 @@ export class CategoryService {
     ) {}
 
     async createCategory (dto: CategoryCreateDto) {
-        const check = await this.prisma.category.findFirst({where: {name: dto.name}})
+        const check = await this.prisma.category.findFirst({where: {title: dto.title}})
 
         if (check) throw new HttpException("Такая категория уже существует", HttpStatus.BAD_REQUEST)
         

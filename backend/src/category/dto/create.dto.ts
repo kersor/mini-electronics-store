@@ -1,4 +1,4 @@
 export class CategoryCreateDto {
-    name: string
-    fullName: string
+    title: string
+    fullTitle: string
 }
