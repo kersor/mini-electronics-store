@@ -2,6 +2,7 @@ import { CustomInput } from "@/react/components/inputs/customInput/CustomInput"
 import { CustomButton } from "@/react/components/ui/customButton/CustomButton"
 import { SectionAdminButtonsCRUD } from "@/react/sections/common/sectionAdminButtonsCRUD/SectionAdminButtonsCRUD"
 import { useDeleteCategoriesMutation, useUpdateCategoriesMutation } from "@/scripts/api/categories/categoriesApi"
+import { useDeleteCharacteristicMutation, useUpdateCharacteristicMutation } from "@/scripts/api/characteristic/characteristicApi"
 import { Modal } from "@mantine/core"
 import { useDisclosure } from "@mantine/hooks"
 import { useForm } from "react-hook-form"
@@ -25,22 +26,20 @@ export const CardAdminCharacteristic = ({
         }
     })
 
-    const [delCategory] = useDeleteCategoriesMutation()
-    const [updateCategory] = useUpdateCategoriesMutation()
+    const [delCharacteristic] = useDeleteCharacteristicMutation()
+    const [updateCharacteristic] = useUpdateCharacteristicMutation()
     
     const [opened, { open, close }] = useDisclosure(false);
 
-    const funcDeleteCategory = async (id: number) => await delCategory(id)
-    const funcUpdateCategory = async () => {
+    const funcDeleteCharacteristic = async (id: number) => await delCharacteristic(id)
+    const funcUpdateCharacteristic = async () => {
         const name = getValues('name')
-        const slug = slugify('Пример категории')
 
         const payload = {
-            name: name,
-            fullName: slug
+            name: name
         }
 
-        await updateCategory({id: item.id, payload})
+        await updateCharacteristic({id: item.id, payload})
         close()
     }
     
@@ -51,12 +50,12 @@ export const CardAdminCharacteristic = ({
                 <div>{++index}. {item.name}</div>
                 <div className="bg-green-700 text-[#FFF] py-1 px-3 rounded-md">{item.type}</div>
             </div>
-            <SectionAdminButtonsCRUD data={item} funcOnDelete={funcDeleteCategory} funcOnEdit={() => open()}/>
+            <SectionAdminButtonsCRUD data={item} funcOnDelete={funcDeleteCharacteristic} funcOnEdit={() => open()}/>
 
             <Modal opened={opened} onClose={close} title="Редактировать">
                 <div className='flex flex-col gap-2'>
                     <CustomInput control={control} name="name" placeholder='Название категории' />
-                    <CustomButton title='Обновить' onClick={funcUpdateCategory} />
+                    <CustomButton title='Обновить' onClick={funcUpdateCharacteristic} />
                 </div>
             </Modal>
         </div>

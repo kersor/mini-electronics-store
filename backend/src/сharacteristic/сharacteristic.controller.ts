@@ -1,6 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { СharacteristicService } from './сharacteristic.service';
 import { CharacteristicCreateDto } from './dto/create.dto';
+import { CharacteristicUpdateDto } from './dto/update.dto';
 
 @Controller('characteristic')
 export class СharacteristicController {
@@ -24,6 +25,11 @@ export class СharacteristicController {
   @Delete(":id")
   async deleteOneCharacteristic (@Param("id") id: string) {
     return this.сharacteristicService.deleteOneCharacteristic(id)
+  }
+
+  @Put(":id")
+  async updtaeCategory (@Body() dto: CharacteristicUpdateDto, @Param("id") id: string) {
+    return this.сharacteristicService.updtaeCharacteristic(dto, id)
   }
 
 }

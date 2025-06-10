@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CharacteristicCreateDto } from './dto/create.dto';
 import { PrismaService } from 'src/prisma.service';
+import { CharacteristicUpdateDto } from './dto/update.dto';
 
 @Injectable()
 export class СharacteristicService {
@@ -37,8 +38,19 @@ export class СharacteristicService {
     }
 
     async deleteOneCharacteristic (id: string) {
+        console.log(id)
         await this.prisma.characteristics.delete({
             where: {id: +id}
         })
     }
+
+    async updtaeCharacteristic (dto: CharacteristicUpdateDto, id: string) {
+        const result = await this.prisma.characteristics.update({
+            where: {id: +id},
+            data: dto
+        })
+
+        return result
+    }
+    
 }

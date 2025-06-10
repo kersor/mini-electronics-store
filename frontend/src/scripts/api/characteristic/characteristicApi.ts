@@ -11,21 +11,21 @@ export const characteristicApi = rootApi.injectEndpoints({
             }),
             invalidatesTags: ["Characteristic"]
         }),
-        // deleteCategories: build.mutation<void, number>({
-        //     query: (id: number)  => ({
-        //         url: `/category/${id}`,
-        //         method: "DELETE"
-        //     }),
-        //     invalidatesTags: ["Characteristic"]
-        // }),
-        // updateCategories: build.mutation<any, any>({
-        //     query: (body: any) => ({
-        //         url: `/category/${body.id}`,
-        //         method: "PUT",
-        //         body: body.payload
-        //     }),
-        //     invalidatesTags: ["Characteristic"]
-        // }),
+        deleteCharacteristic: build.mutation<void, number>({
+            query: (id: number)  => ({
+                url: `/characteristic/${id}`,
+                method: "DELETE"
+            }),
+            invalidatesTags: ["Characteristic"]
+        }),
+        updateCharacteristic: build.mutation<any, any>({
+            query: (body: any) => ({
+                url: `/characteristic/${body.id}`,
+                method: "PUT",
+                body: body.payload
+            }),
+            invalidatesTags: ["Characteristic"]
+        }),
         getAllCharacteristics: build.query<any, void>({
             query: (body: any) => ({
                 url: '/characteristic',
@@ -36,10 +36,8 @@ export const characteristicApi = rootApi.injectEndpoints({
 })
 
 export const {
-    // useUpdateCategoriesMutation,
-    // useDeleteCategoriesMutation,
-    // useCreateCategoriesMutation,
-    // useGetAllCategoriesQuery
+    useUpdateCharacteristicMutation,
+    useDeleteCharacteristicMutation,
     useGetAllCharacteristicsQuery,
     useCreateCharacteristicMutation
 } = characteristicApi
