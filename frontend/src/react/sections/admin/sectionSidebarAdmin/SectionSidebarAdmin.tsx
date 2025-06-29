@@ -15,7 +15,6 @@ export const SectionSidebarAdmin = () => {
                     <div className='flex flex-col gap-1.5'>
                         <div onClick={() => router.push('/admin/product')} className={styles.admin_item}>Товары</div>
                         <div onClick={() => router.push('/admin/category')} className={styles.admin_item}>Категории</div>
-                        <div onClick={() => router.push('/admin/characteristic')} className={styles.admin_item}>Характеристики</div>
                         <div onClick={() => router.push('/admin/count')} className={styles.admin_item}>Количество товаров</div>
                     </div>
                 </div>

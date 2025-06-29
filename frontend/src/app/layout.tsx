@@ -5,7 +5,9 @@ import { SectionHeaderLayout } from "@/react/sections/common/sectionHeader/Secti
 import StoreProvider from "./StoreProvider";
 import { ClientLayout } from "@/scripts/api/LayoutClient";
 import { ColorSchemeScript, createTheme, mantineHtmlProps, MantineProvider } from '@mantine/core';
+import '@mantine/dropzone/styles.css';
 import '@mantine/core/styles.css';
+
 
 const roboto = Roboto({
   subsets: ["latin", "cyrillic"],

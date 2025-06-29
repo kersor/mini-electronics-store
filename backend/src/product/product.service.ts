@@ -30,35 +30,11 @@ export class ProductService {
             }
         })
 
-        const characteristicsData = dto.characteristics.map(char => ({
-            productId: +product.id,
-            characteristicId: +char.characteristicId,
-            value: char.value
-        }));
-
-        await this.prisma.productCharacteristics.createMany({
-            data: characteristicsData,
-            skipDuplicates: true // Пропускаем дубликаты, если есть
-        });
-
-        return this.prisma.product.findUnique({
-            where: { id: product.id },
-                include: { 
-                    characteristics: {
-                        include: {
-                            characteristic: true // Включаем данные из справочника
-                        }
-                    },
-                    count: true,
-                    category: true
-                }
-        });
     }
 
     async getAllProduct () {
         const products = await this.prisma.product.findMany({
             include: {
-                characteristics: true,
                 category: true,
                 photos: true,
                 rating: true,

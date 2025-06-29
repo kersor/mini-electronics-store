@@ -1,0 +1,7 @@
+.input:focus {
+    --input-bd: #648660;
+}
+
+.wrapper {
+    width: 100%;
+}

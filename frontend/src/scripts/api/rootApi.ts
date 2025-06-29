@@ -9,7 +9,7 @@ export const rootApi = createApi({
     }),
     tagTypes: [
         'Category',
-        'Characteristic'
+        'Product'
     ],
     endpoints: (build) => ({
         

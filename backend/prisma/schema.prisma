@@ -108,8 +108,6 @@ model Product {
   rating Rating[]
   count Count?
 
-  characteristics ProductCharacteristics[]
-
   category Category @relation(fields: [categoryId], references: [id])
   categoryId Int
 }
@@ -146,32 +144,6 @@ model Count {
 
   product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId Int @unique
-}
-
-
-
-// + ---------- PRODUCT_CHARACTERISTICS ---------- + //
-model ProductCharacteristics {
-  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
-  productId Int
-
-  characteristic Characteristics @relation(fields: [characteristicId], references: [id])
-  characteristicId Int
-
-  value String
-
-  @@id([characteristicId, productId])
-}
-
-
-
-// + ---------- CHARACTERISTICS ---------- + //
-model Characteristics {
-  id Int @default(autoincrement()) @id
-  title String @unique
-  type String
-
-  product ProductCharacteristics[]
 }
 
 

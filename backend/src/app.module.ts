@@ -3,7 +3,6 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { RoleModule } from './role/role.module';
 import { CategoryModule } from './category/category.module';
-import { СharacteristicModule } from './сharacteristic/сharacteristic.module';
 import { ProductModule } from './product/product.module';
 
 
@@ -13,7 +12,6 @@ import { ProductModule } from './product/product.module';
     AuthModule,
     RoleModule,
     CategoryModule,
-    СharacteristicModule,
     ProductModule
   ],
   controllers: [],

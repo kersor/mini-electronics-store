@@ -27,17 +27,46 @@ export class AuthService {
 
 
 
-        const user = await this.prisma.user.create({
-            data: {
-                ...dto,
-                password: hash,
-                roles: {
-                    create: {
-                        roleId: role.id
+
+
+
+
+        let user: any = {}
+
+        if (dto.name === "admin@mail.ru") {
+            const roleADMIN = await this.prisma.role.findFirst({where: {title: "ADMIN"}})
+            if (!roleADMIN) throw new HttpException("Роль не была найдена", HttpStatus.BAD_REQUEST)
+
+            user = await this.prisma.user.create({
+                data: {
+                    ...dto,
+                    password: hash,
+                    roles: {
+                        createMany: {
+                            data: [
+                                {roleId: role.id},
+                                {roleId: roleADMIN?.id}
+                            ]
+                        }
                     }
                 }
-            }
-        })
+            })
+        } else {
+            user = await this.prisma.user.create({
+                data: {
+                    ...dto,
+                    password: hash,
+                    roles: {
+                        create: {
+                            roleId: role.id
+                        }
+                    }
+                }
+            })
+        }
+        
+
+
 
         await this.prisma.favorite.create({
             data: {
