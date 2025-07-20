@@ -9,7 +9,8 @@ export const rootApi = createApi({
     }),
     tagTypes: [
         'Category',
-        'Product'
+        'Product',
+        'Upload'
     ],
     endpoints: (build) => ({
         

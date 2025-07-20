@@ -21,7 +21,7 @@ export const categoriesApi = rootApi.injectEndpoints({
         updateCategories: build.mutation<any, any>({
             query: (body: any) => ({
                 url: `/category/${body.id}`,
-                method: "PUT",
+                method: "PATCH",
                 body: body.payload
             }),
             invalidatesTags: ["Category"]

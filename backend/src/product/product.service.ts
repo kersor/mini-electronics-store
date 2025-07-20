@@ -1,20 +1,22 @@
 import { Injectable, UploadedFiles } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
-import { ProductCreateDto, ProductUpdateCountDto } from './dto/create.dto';
+import { ProductCreateDto, ProductUpdateCountDto, ProductUpdateDto } from './dto/create.dto';
 import { v4 as uuidv4 } from 'uuid';
 import * as path from 'path';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
+import { PhotosService } from 'src/photos/photos.service';
 
 @Injectable()
 export class ProductService {
     constructor (
-        readonly prisma: PrismaService
+        readonly prisma: PrismaService,
+        readonly photosService: PhotosService
     ) {}
 
     async createProduct (dto: ProductCreateDto) {
         const product = await this.prisma.product.create({
             data: {
-                title: dto.title,
+                title: dto.name, 
                 description: dto.description,
                 price: dto.price,
                 category: {
@@ -30,6 +32,48 @@ export class ProductService {
             }
         })
 
+        if (!!dto.photos?.length) {
+            await this.photosService.createPhotosProduct({productId: product.id, photos: dto.photos})
+
+            const productUpdate = this.prisma.product.findFirst({
+                where: {
+                    id: product.id,
+                },
+                include: {
+                    photos: {
+                        select: {
+                            photo: true
+                        }
+                    }
+                }
+            })
+
+            console.log(productUpdate)
+            return productUpdate
+        }
+
+        return product
+    }
+
+    async updateProduct (productId: string, dto: ProductUpdateDto) {
+        const { categoryId, photos, count, name, ...rest } = dto;
+        const product = await this.prisma.product.update({
+            where: {
+                id: +productId
+            },
+            data: {
+                title: name,
+                
+                ...rest,
+            }
+        }) 
+
+        if (!!dto.photos?.length) {
+            await this.prisma.photos.deleteMany({where: {productId: +productId}})
+            await this.photosService.createPhotosProduct({productId: product.id, photos: dto.photos})
+        }
+
+        return product
     }
 
     async getAllProduct () {
@@ -56,7 +100,6 @@ export class ProductService {
                 mkdirSync(pathFolder, { recursive: true });
             }
 
-            console.log(pathFolder)
             writeFileSync(filePath, photo.buffer)
 
             photosArray.push({

@@ -15,7 +15,7 @@ export class CategoryService {
         if (check) throw new HttpException("Такая категория уже существует", HttpStatus.BAD_REQUEST)
         
         await this.prisma.category.create({
-            data: {
+            data: { 
                 ...dto
             }
         })

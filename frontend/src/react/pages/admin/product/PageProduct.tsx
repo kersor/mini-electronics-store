@@ -6,13 +6,17 @@ import { CustomRadioButton } from "@/react/components/inputs/customRadioButton/C
 import { CustomSelect } from "@/react/components/inputs/customSelect/customSelect";
 import { CustomButton } from "@/react/components/ui/customButton/CustomButton";
 import { useGetAllCategoriesQuery } from "@/scripts/api/categories/categoriesApi";
-import { useCreateProductMutation } from "@/scripts/api/product/productApi";
+import { useCreateProductMutation, useGetAllProductsQuery } from "@/scripts/api/product/productApi";
 import { CloseButton, FileInput, Image, Input, Select, SimpleGrid, Text, } from "@mantine/core";
 import { Dropzone, DropzoneProps, FileWithPath, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 import styles from './styles.module.css'
+import { useUploadPhotoMutation } from "@/scripts/api/upload/uploadApi";
+import { useRouter } from "next/navigation";
+import { BACKEND_DOMAIN } from "@/scripts/constants/back";
+import { CardAdminProduct } from "@/react/components/cards/admin/cardAdminProduct/CardAdminProduct";
 
 
 interface Form {
@@ -23,11 +27,16 @@ interface Form {
     photos: File[]
 }
 
+interface Props {
+    DataCategories: any[],
+}
+
 export default function PageProduct ({
     DataCategories,
-}: {
-    DataCategories: any[]
-}) {
+}: Props) {
+    const router = useRouter()
+    const {data} = useGetAllProductsQuery()
+    const [products, setProducts] = useState<any[]>([])
     const [files, setFiles] = useState<FileWithPath[]>([]);
 
     const previews = files.map((file, index) => {
@@ -46,15 +55,23 @@ export default function PageProduct ({
             </div>
         );
     });
-    const [createProduct] = useCreateProductMutation()     
-    console.log(files)
+    const [createProduct] = useCreateProductMutation()  
+    const [sendPhoto] = useUploadPhotoMutation()   
+
+    useEffect(() => {
+        if (data ) {
+            setProducts(data)
+        }
+    }, [data])
+
     const {
         control,
         getValues,
         watch,
         setValue,
         handleSubmit,
-        register
+        register,
+        reset
     } = useForm<Form>({
         defaultValues: {
             name: "",
@@ -67,15 +84,40 @@ export default function PageProduct ({
 
 
     const onSubmit = async (data: Form) => {
-        const {photos, ...dta} = data
-        // const res = await createProduct(dta)
-        console.log(data)
+        const {photos: phts, ...dta} = data
+        const payload: any = {
+            ...dta,
+            photos: []
+        }
+
+        if (!!phts.length) {
+            let reqPhotos = phts.map(async (photo: File) => {
+                const formData = new FormData()
+                formData.append("photo", photo)
+
+                return await sendPhoto(formData)
+            })
+
+            const req = await Promise.all(reqPhotos)
+                .then(res => {
+                    const urls: string[] = []
+                    res.map((img) => urls.push(img.data.url))
+                    
+                    return urls
+                })
+                .catch((err) => console.log(err))
+            const res = await req
+            payload.photos = res
+
+            await createProduct(payload)
+            reset()
+            setFiles([])
+        }
     }
-    
 
     return (
-        <div>
-            <div className="flex flex-col gap-2 items-start max-w-[500px] w-full">
+        <div className="flex gap-5 h-full">
+            <div className="flex flex-col gap-2 items-start max-w-[400px] w-full">
                 <Input 
                     {...register("name")}
                     placeholder="Название" 
@@ -132,7 +174,14 @@ export default function PageProduct ({
                         </div>
                     )}
                 />
-            <CustomButton title="Создать" onClick={handleSubmit(onSubmit)}/>
+                <CustomButton title="Создать" onClick={handleSubmit(onSubmit)}/>
+            </div>
+            <div className={styles.products}>
+                {
+                    products.length > 0 && products.map((product, index: number) => (
+                        <CardAdminProduct key={product.id} categories={DataCategories} item={product} index={index}/>
+                    ))
+                }
             </div>
         </div>
     )

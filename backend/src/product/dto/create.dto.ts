@@ -1,17 +1,21 @@
 export class ProductCreateDto {
-    title: string
+    name: string
     description: string
     price: string
     categoryId: string
-    characteristics: ProductCreateCharacteristicsDto[]
+    photos?: string[]
     count?: number
-}
-
-export class ProductCreateCharacteristicsDto {
-    characteristicId: number
-    value: string
 }
 
 export class ProductUpdateCountDto {
     count: number
+}
+
+export class ProductUpdateDto {
+    name?: string
+    description?: string
+    price?: string
+    categoryId?: string
+    photos?: string[]
+    count?: number
 }

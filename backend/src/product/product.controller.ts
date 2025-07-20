@@ -1,6 +1,6 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UploadedFiles, UseInterceptors, Patch} from '@nestjs/common';
 import { ProductService } from './product.service';
-import { ProductCreateDto, ProductUpdateCountDto } from './dto/create.dto';
+import { ProductCreateDto, ProductUpdateCountDto, ProductUpdateDto } from './dto/create.dto';
 import { AnyFilesInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 
 @Controller('product')
@@ -21,7 +21,13 @@ export class ProductController {
   @UseInterceptors(FilesInterceptor('photos'))
   async uploadPhotos (@Body() productId: any, @UploadedFiles() photos: Array<Express.Multer.File>) {
     return this.productService.uploadPhotos(photos, productId.productId)
+  }  
+
+  @Patch('/:id')
+  async updateProduct (@Param("id") productId: string, @Body() dto: ProductUpdateDto ) {
+    return this.productService.updateProduct(productId, dto)
   } 
+
 
   @Put('/count/:productId')
   async updateProductCount (@Param("productId") productId: string, @Body() count: ProductUpdateCountDto ) {

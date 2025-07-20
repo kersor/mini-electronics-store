@@ -3,6 +3,7 @@
 import { CardCatalogProduct } from "@/react/components/cards/catalog/cardCatalogProduct/CardCatalogProduct";
 import { Container } from "@/react/components/containers/container/Container";
 import { SectionFilters } from "@/react/sections/catalog/sectionFilters/SectionFilters";
+import { useGetAllProductsQuery } from "@/scripts/api/product/productApi";
 import { useFavorites } from "@/store/favorites.zustand";
 import { useFilters } from "@/store/filters.zustand";
 import { useEffect, useState } from "react";
@@ -147,6 +148,8 @@ export default function PageCatalog() {
   const { addFilters, addFilter } = actions
   const [products, setProducts] = useState<any[]>([])
 
+  const {data: DataProducts} = useGetAllProductsQuery()
+
   useEffect(() => {
     const paylaod = {
       category: list_category,
@@ -164,12 +167,12 @@ export default function PageCatalog() {
   }, []) 
 
   useEffect(() => {
-    if (!!items.length) {
-      const favorite = items.filter((item: any) => item.favorite === true)
-      setProducts(items)
+    if (DataProducts && !!DataProducts.length) {
+      const favorite = DataProducts.filter((item: any) => item.favorite === true)
+      setProducts(DataProducts)
       favorites.actions.addAllFavorites(favorite)
     }
-  }, [items])
+  }, [DataProducts])
 
 
 

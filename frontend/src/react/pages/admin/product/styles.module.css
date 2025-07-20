@@ -5,3 +5,13 @@
 .wrapper {
     width: 100%;
 }
+
+.products {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: #648660;
+    overflow-y: auto;
+    height: 100%;
+}

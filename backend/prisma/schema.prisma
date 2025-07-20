@@ -49,14 +49,14 @@ model UsersOnRoles {
 model Favorite {
   id Int @default(autoincrement()) @id
   
-  products FavoritesProudct[]
+  products FavoritesProduct[]
 
   user User @relation(fields: [userId], references: [id])
   userId Int @unique
 }
 
 // + ---------- FAVORITES_PRODUCT ---------- + //
-model FavoritesProudct {
+model FavoritesProduct {
   favorite Favorite @relation(fields: [favoriteId], references: [id])
   favoriteId Int
 
@@ -72,7 +72,7 @@ model FavoritesProudct {
 model Cart {
   id Int @default(autoincrement()) @id
   
-  products CartProuduct[]
+  products CartProduct[]
 
   user User @relation(fields: [userId], references: [id])
   userId Int @unique
@@ -81,7 +81,7 @@ model Cart {
 
 
 // + ---------- CART_PRODUCT ---------- + //
-model CartProuduct {
+model CartProduct {
   cart Cart @relation(fields: [cartId], references: [id])
   cartId Int
 
@@ -102,8 +102,8 @@ model Product {
   price String
 
 
-  favorites FavoritesProudct[]
-  carts CartProuduct[]
+  favorites FavoritesProduct[]
+  carts CartProduct[]
   photos Photos[]
   rating Rating[]
   count Count?
@@ -129,10 +129,10 @@ model Photos {
 model Category {
   id Int @default(autoincrement()) @id
   
-  title String @unique
+  title String
   fullTitle String
 
-  product Product[]
+  products Product[]
 }
 
 

@@ -2,15 +2,21 @@ import { CustomInput } from "@/react/components/inputs/customInput/CustomInput"
 import { CustomButton } from "@/react/components/ui/customButton/CustomButton"
 import { SectionAdminButtonsCRUD } from "@/react/sections/common/sectionAdminButtonsCRUD/SectionAdminButtonsCRUD"
 import { useDeleteCategoriesMutation, useUpdateCategoriesMutation } from "@/scripts/api/categories/categoriesApi"
+import { yupResolver } from "@hookform/resolvers/yup"
 import { Modal } from "@mantine/core"
 import { useDisclosure } from "@mantine/hooks"
 import { useForm } from "react-hook-form"
 import { slugify } from "transliteration"
+import * as yup from 'yup'
 
 interface Props {
     index: number
     item: any
 }
+
+const schema = yup.object({
+    title: yup.string().required("Поле название обязателен")
+})
 
 export const CardAdminCategory = ({
     index,
@@ -18,12 +24,16 @@ export const CardAdminCategory = ({
 }: Props) => {
     const {
         control,
-        getValues
+        getValues,
+        formState: {errors}
     } = useForm({
         defaultValues: {
-            title: ""
-        }
+            title: item.title
+        },
+        resolver: yupResolver(schema)
+        
     })
+    console.log(errors)
 
     const [delCategory] = useDeleteCategoriesMutation()
     const [updateCategory] = useUpdateCategoriesMutation()
@@ -33,11 +43,11 @@ export const CardAdminCategory = ({
     const funcDeleteCategory = async (id: number) => await delCategory(id)
     const funcUpdateCategory = async () => {
         const title = getValues('title')
-        const slug = slugify('Пример категории')
+        const slug = slugify(title)
 
         const payload = {
             title: title,
-            fullName: slug
+            fullTitle: slug
         }
 
         await updateCategory({id: item.id, payload})

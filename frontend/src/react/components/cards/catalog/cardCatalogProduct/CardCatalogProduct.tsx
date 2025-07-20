@@ -7,6 +7,7 @@ import { FaHeart, FaRegHeart } from "react-icons/fa"
 import { StarRatingGet } from "@/react/components/ui/starRating/StarRatingGet"
 import { useRouter } from "next/navigation"
 import { useFavorites } from "@/store/favorites.zustand"
+import { BACKEND_DOMAIN } from "@/scripts/constants/back"
 
 
 interface Props {
@@ -32,20 +33,23 @@ export const CardCatalogProduct = ({
         favorite.actions.toggleFavorites(data)
     }
 
+    console.log(data.photos[0]?.photo)
     return (
         <div className={styles.card} onClick={funcOnClick}>
             <div className="bg-[#F6F6F6] py-5 relative rounded-[10px]">
-                <img className="max-w-[300px] h-auto object-cover" src="/product/1.png" alt="" />
+                <img className="max-w-[300px] w-full object-cover h-[250px]" src={`${BACKEND_DOMAIN}/uploads/${data.photos[0]?.photo}`} alt="" />
                 <div onClick={(e: MouseEvent<HTMLDivElement>) => funcOnClickToggleFavorite(e)} className={clsx(styles.add_favorite)}> 
                     {isFavorite ? <FaHeart color="#ec7063" size={16} /> : <FaRegHeart size={16} />}
                 </div>
-            </div>
+            </div> 
             <div className="flex flex-col gap-1 pt-6">
                 <div className="flex justify-between items-center font-bold px-0.5">
                     <div className="">{data.title}</div>
                     <div className="">$ {data.price}</div>
                 </div>
-                <div className="truncate text-[13px]">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat, tempora magni? Vitae distinctio voluptatem ea reiciendis ex animi, unde excepturi quod earum enim, aliquam libero dolores, repudiandae fuga nisi officiis.</div>
+                <div className="truncate text-[13px]">
+                    {data.description}
+                </div>
                 <div className="flex items-center gap-2 w-full">
                     <StarRatingGet count={3} />
                     <div className="mt-1.5 text-[#636363] text-[13px]">(121)</div>
