@@ -7,7 +7,7 @@ import { CustomSelect } from "@/react/components/inputs/customSelect/customSelec
 import { CustomButton } from "@/react/components/ui/customButton/CustomButton";
 import { useGetAllCategoriesQuery } from "@/scripts/api/categories/categoriesApi";
 import { useCreateProductMutation, useGetAllProductsQuery } from "@/scripts/api/product/productApi";
-import { CloseButton, FileInput, Image, Input, Select, SimpleGrid, Text, } from "@mantine/core";
+import { CloseButton, FileInput, Image, Input, ScrollAreaAutosize, Select, SimpleGrid, Text, } from "@mantine/core";
 import { Dropzone, DropzoneProps, FileWithPath, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -176,13 +176,13 @@ export default function PageProduct ({
                 />
                 <CustomButton title="Создать" onClick={handleSubmit(onSubmit)}/>
             </div>
-            <div className={styles.products}>
+            <ScrollAreaAutosize w="100%" mah="100%" maw="100%" offsetScrollbars classNames={{content: styles.content}}>
                 {
                     products.length > 0 && products.map((product, index: number) => (
                         <CardAdminProduct key={product.id} categories={DataCategories} item={product} index={index}/>
                     ))
                 }
-            </div>
+            </ScrollAreaAutosize>
         </div>
     )
 }

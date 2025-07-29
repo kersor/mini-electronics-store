@@ -116,6 +116,7 @@ export class ProductService {
     }
 
     async updateProductCount (productId: string, count: ProductUpdateCountDto ) {
+        console.log(1)
         const product = await this.prisma.count.findFirst({where: {productId: +productId}})
 
         if (product) {

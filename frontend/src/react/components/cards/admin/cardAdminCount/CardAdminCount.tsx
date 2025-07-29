@@ -10,8 +10,8 @@ import { slugify } from "transliteration"
 import { CloseButton, FileInput, Image, Input, Select, SimpleGrid, Text, } from "@mantine/core";
 import styles from './styles.module.css' 
 import { Dropzone, FileWithPath, IMAGE_MIME_TYPE } from "@mantine/dropzone"
-import { useMemo, useState } from "react"
-import { useCreateProductMutation, useDeleteProductMutation, useUpdateProductMutation } from "@/scripts/api/product/productApi"
+import { useEffect, useMemo, useState } from "react"
+import { useCreateProductMutation, useDeleteProductMutation, useUpdateCountMutation, useUpdateProductMutation } from "@/scripts/api/product/productApi"
 import { useUploadPhotoMutation } from "@/scripts/api/upload/uploadApi"
 
 interface Props {
@@ -19,10 +19,27 @@ interface Props {
     item: any
 }
 
+interface Form {
+    name: string
+    description: string
+    price: string
+    categoryId: string
+    photos: string[]
+    count: number
+}
+
 export const CardAdminCount = ({
     index,
     item,
 }: Props) => {
+    const [disabled, setDisabled] = useState(true)
+
+    const count = useMemo(() => {
+        return item.count.count
+    }, [item])
+
+
+
     const {
         control,
         getValues,
@@ -30,22 +47,33 @@ export const CardAdminCount = ({
         setValue,
         handleSubmit,
         register
-    } = useForm({
+    } = useForm<Form>({
         defaultValues: {
             name: item.title || "",
             description: item.description || "",
             price: item.price || "",
             categoryId: item.categoryId || "",
-            photos: []
+            count: item.count.count || 0
         }
     })
 
+    useEffect(() => {
+        if (+count === +watch('count')) setDisabled(prev => true)
+        else setDisabled(prev => false)
+    }, [watch('count'), item])
 
-    const [updateProduct] = useUpdateProductMutation()
-    const [sendPhoto] = useUploadPhotoMutation()   
-    const [deleteProduct] = useDeleteProductMutation() 
-    
-    const [opened, { open, close }] = useDisclosure(false);
+
+
+    const [updateCountProduct] = useUpdateCountMutation()
+
+    const onSubmit = async (data: any) => {
+        if (+data.count === +count) return
+        const {photos, ...rest} = data
+        const payload = {
+            count: +data.count,
+        }
+        await updateCountProduct({id: item.id, payload})
+    }
 
     return (
         <div className="flex items-center justify-between w-full p-3 border border-[#648660] rounded-md font-bold" key={item.id}>
@@ -57,17 +85,15 @@ export const CardAdminCount = ({
                 {item.title}
             </div>
             
-            <div>
+            <div className="flex gap-2 items-center">
                 <Input 
-                    {...register("name")}
-                    placeholder="Название" 
+                    {...register("count")}
+                    placeholder="Количество" 
                     classNames={{ input: styles.input, wrapper: styles.wrapper }}
+                    type="number"
                 />
+                <CustomButton disabled={disabled} title="Обновить" onClick={handleSubmit(onSubmit)} />
             </div>
-
-            <Modal opened={opened} onClose={close} title="Редактировать" size="400px">
-
-            </Modal>
         </div>
     )
 }

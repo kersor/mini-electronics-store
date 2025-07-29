@@ -29,8 +29,8 @@ export class ProductController {
   } 
 
 
-  @Put('/count/:productId')
-  async updateProductCount (@Param("productId") productId: string, @Body() count: ProductUpdateCountDto ) {
+  @Patch('/count/:id')
+  async updateProductCount (@Param("id") productId: string, @Body() count: ProductUpdateCountDto ) {
     return this.productService.updateProductCount(productId, count)
   } 
 

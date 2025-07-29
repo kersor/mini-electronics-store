@@ -31,11 +31,21 @@ export const productApi = rootApi.injectEndpoints({
                 method: "DELETE"
             }),
             invalidatesTags: ["Product"]
-        })
+        }),
+        updateCount: build.mutation<any, any>({
+            query: (body: any) => ({
+                url: `/product/count/${body.id}`,
+                method: "PATCH",
+                body: body.payload
+            }),
+            invalidatesTags: ["Product"]
+        }),
+
     })
 })
 
 export const {
+    useUpdateCountMutation,
     useUpdateProductMutation,
     useCreateProductMutation,
     useGetAllProductsQuery,

@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form'
 import { CustomButton } from '@/react/components/ui/customButton/CustomButton'
 import { useCreateCategoriesMutation, useDeleteCategoriesMutation, useGetAllCategoriesQuery, useUpdateCategoriesMutation } from '@/scripts/api/categories/categoriesApi'
 import { SectionAdminButtonsCRUD } from '@/react/sections/common/sectionAdminButtonsCRUD/SectionAdminButtonsCRUD'
-import { Modal } from '@mantine/core'
+import { Modal, ScrollAreaAutosize } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { CardAdminCategory } from '@/react/components/cards/admin/cardAdminCategory/CardAdminCategory'
 import * as yup from 'yup'
@@ -55,11 +55,11 @@ export default function PageCategoryAdmin () {
     }
     return (
         <div className='h-[calc(100%-60px)]'>
-            <div className='flex gap-2 items-center max-w-[450px]'>
+            <div className='flex gap-2 items-center max-w-[450px] pb-5'>
                 <CustomInput control={control} name="title" placeholder='Название категории' error={errors.title?.message} />
                 <CustomButton title='Создать' onClick={handleSubmit(onSubmit)} />
             </div>
-            <div className='flex flex-col gap-2 mt-5 text-[#648660] h-full overflow-auto'>
+            <ScrollAreaAutosize offsetScrollbars mah="100%" maw="100%" classNames={{content: styles.content}}>
                 {
                     data && data.map((item: any, index: number) => (
                         <CardAdminCategory 
@@ -69,7 +69,7 @@ export default function PageCategoryAdmin () {
                         />
                     ))
                 }
-            </div>
+            </ScrollAreaAutosize>
         </div>
     )
 }

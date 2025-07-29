@@ -11,8 +11,6 @@ export default function PageAdmin () {
 
     const isAdmin = user.isAdmin
 
-    console.log(isAdmin)
-
     if (isAdmin === true) return <SectionAdmin />
     else if (isAdmin === false) router.push('/404') 
 }
