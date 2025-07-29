@@ -49,7 +49,7 @@ export const CustomButton = ({
     }
 
     return (
-        <div onClick={onClick} style={style}>
+        <div role='button' onClick={onClick} style={style}>
             <div className={clsx(
                 classNames[variant],
                 classNameSize[size],
