@@ -131,4 +131,10 @@ export class AuthService {
             access_token: access_token
         }
     }
+
+    async verifyToken (token: string) {
+        const verifyData = await this.jwtService.verifyAsync(token)
+        
+        return verifyData
+    }
 }

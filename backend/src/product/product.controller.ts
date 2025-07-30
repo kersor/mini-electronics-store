@@ -1,7 +1,8 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UploadedFiles, UseInterceptors, Patch} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UploadedFiles, UseInterceptors, Patch, Req} from '@nestjs/common';
 import { ProductService } from './product.service';
 import { ProductCreateDto, ProductUpdateCountDto, ProductUpdateDto } from './dto/create.dto';
 import { AnyFilesInterceptor, FilesInterceptor } from '@nestjs/platform-express';
+import { Request } from 'express';
 
 @Controller('product')
 export class ProductController {
@@ -13,8 +14,14 @@ export class ProductController {
   } 
 
   @Get()
-  async getAllProduct () {
-    return this.productService.getAllProduct()
+  async getAllProduct (@Req() request: Request) {
+    const authHeader = request.headers['authorization'];
+
+    const token = authHeader?.startsWith('Bearer ')
+      ? authHeader.slice(7)
+      : undefined;
+
+    return this.productService.getAllProduct(token)
   }
 
   @Post('/upload')

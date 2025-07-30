@@ -5,12 +5,15 @@ import { v4 as uuidv4 } from 'uuid';
 import * as path from 'path';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { PhotosService } from 'src/photos/photos.service';
+import { Request } from 'express';
+import { AuthService } from 'src/auth/auth.service';
 
 @Injectable()
 export class ProductService {
     constructor (
         readonly prisma: PrismaService,
-        readonly photosService: PhotosService
+        readonly photosService: PhotosService,
+        readonly authService: AuthService
     ) {}
 
     async createProduct (dto: ProductCreateDto) {
@@ -75,22 +78,48 @@ export class ProductService {
 
         return product
     }
+ 
+    async getAllProduct (token: string | undefined) {
+        let user: any = {}
 
-    async getAllProduct () {
+        if (token) {
+            user = await this.authService.verifyToken(token)
+        } else {
+            user = null
+        }
+        
+
+        let favoriteIds: number[] = [];
+
+        if (user) {
+            const favorite = await this.prisma.favorite.findFirst({
+                where: { userId: user.id },
+                include: {
+                    products: {
+                        select: { productId: true },
+                    },
+                },
+            });
+
+            favoriteIds = favorite?.products.map(p => p.productId) || [];
+        }
+
         const products = await this.prisma.product.findMany({
             include: {
-                category: true,
                 photos: true,
-                rating: true,
-                count: true,
-            }
-        })
-        return products
+                category: true,
+            },
+        });
+
+        return products.map(product => ({
+            ...product,
+            isFavorite: favoriteIds.includes(product.id),
+        }));
+
     }
 
     async uploadPhotos (@UploadedFiles() photos: Array<Express.Multer.File>, productId: string) {
         const photosArray: any[] = []
-        console.log(productId)
         photos.map((photo: Express.Multer.File) => {
             const fileName = uuidv4() + '.jpg'
             const filePath = path.resolve(__dirname, '..', 'static', fileName)

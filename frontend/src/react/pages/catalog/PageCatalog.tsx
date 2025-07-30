@@ -3,6 +3,7 @@
 import { CardCatalogProduct } from "@/react/components/cards/catalog/cardCatalogProduct/CardCatalogProduct";
 import { Container } from "@/react/components/containers/container/Container";
 import { SectionFilters } from "@/react/sections/catalog/sectionFilters/SectionFilters";
+import { useGetAllFavoritesQuery } from "@/scripts/api/favorites/favoritesApi";
 import { useGetAllProductsQuery } from "@/scripts/api/product/productApi";
 import { useFavorites } from "@/store/favorites.zustand";
 import { useFilters } from "@/store/filters.zustand";
@@ -168,11 +169,9 @@ export default function PageCatalog() {
 
   useEffect(() => {
     if (DataProducts && !!DataProducts.length) {
-      const favorite = DataProducts.filter((item: any) => item.favorite === true)
       setProducts(DataProducts)
-      favorites.actions.addAllFavorites(favorite)
     }
-  }, [DataProducts])
+  }, [DataProducts, favorites.favorites])
 
 
 

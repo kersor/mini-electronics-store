@@ -8,6 +8,8 @@ import { StarRatingGet } from "@/react/components/ui/starRating/StarRatingGet"
 import { useRouter } from "next/navigation"
 import { useFavorites } from "@/store/favorites.zustand"
 import { BACKEND_DOMAIN } from "@/scripts/constants/back"
+import { useRemoveFavoritesMutation, useSendFavoritesMutation } from "@/scripts/api/favorites/favoritesApi"
+import { useUser } from "@/store/user.zustand"
 
 
 interface Props {
@@ -19,21 +21,28 @@ export const CardCatalogProduct = ({
     className,
     data
 }: Props) => {
-    const [isFavorite, setIsFavorite] = useState<boolean>(data.favorite)
-    const favorite = useFavorites(state => state)
+    const user = useUser(state => state)
+    const [isFavorite, setIsFavorite] = useState<boolean>(data.isFavorite)
     const router = useRouter()
+    const [sendFavorites] = useSendFavoritesMutation()
+    const [removeFavorites] = useRemoveFavoritesMutation()
 
     const funcOnClick = () => {
         router.push(`/product/${data.id}`)
     }
 
-    const funcOnClickToggleFavorite = (e: MouseEvent<HTMLDivElement>) => {
+    const funcOnClickToggleFavorite = async (e: MouseEvent<HTMLDivElement>) => {
         e.stopPropagation()
+        if (!user.user.id) return
+
+        if (isFavorite) {
+            await removeFavorites({productId: data.id})
+        } else {
+            await sendFavorites({productId: data.id})
+        }
         setIsFavorite(prev => !prev)
-        favorite.actions.toggleFavorites(data)
     }
 
-    console.log(data.photos[0]?.photo)
     return (
         <div className={styles.card} onClick={funcOnClick}>
             <div className="bg-[#F6F6F6] py-5 relative rounded-[10px]">

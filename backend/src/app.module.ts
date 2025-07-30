@@ -8,6 +8,7 @@ import { UploadModule } from './upload/upload.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { PhotosModule } from './photos/photos.module';
+import { FavoritesModule } from './favorites/favorites.module';
 
 
 @Module({
@@ -23,6 +24,7 @@ import { PhotosModule } from './photos/photos.module';
       serveRoot: '/uploads', // URL-путь, по которому будут доступны файлы
     }),
     PhotosModule,
+    FavoritesModule,
   ],
   controllers: [],
   providers: [],
