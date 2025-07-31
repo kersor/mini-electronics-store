@@ -35,6 +35,21 @@ export class FavoritesService {
     
     }
 
+    async getCountFavorites (token: string) {
+        const user = await this.authService.verifyToken(token)
+        
+        const favorite = await this.prisma.favorite.findFirst({where: {userId: user.id}})
+        if (!favorite) throw new HttpException("Не найдена корзина", HttpStatus.BAD_REQUEST)
+
+        const count = await this.prisma.favoritesProduct.count({
+            where: {
+                favoriteId: favorite.id,
+            }
+        })
+        
+        return count
+    }
+
     async removeFavoritesProuduct (dto: FavoritesCreateDto, token: string) {
         const user = await this.authService.verifyToken(token)
         
@@ -65,11 +80,18 @@ export class FavoritesService {
                 favoriteId: favorite.id
             },
             select: {
-                product: true
+                product: {
+                    include: {
+                        photos: true
+                    }
+                }
             }
         })
 
-         return data.map((item: any) => item.product)
+        return data.map((item: any) => ({
+            ...item.product,
+            isFavorite: true
+        }))
     }
 }
 

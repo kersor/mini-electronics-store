@@ -2,12 +2,14 @@
 
 import { Container } from "@/react/components/containers/container/Container"
 import { CustomButton } from "@/react/components/ui/customButton/CustomButton"
+import { useGetCountFavoritesQuery } from "@/scripts/api/favorites/favoritesApi"
 import { useUser } from "@/store/user.zustand"
 import { deleteCookie } from "cookies-next/client"
 import { Heart, ShoppingBag, User, UserRound } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import React, { useMemo, useState } from "react"
+import { skip } from "node:test"
+import React, { useEffect, useMemo, useState } from "react"
 import { FaRegHeart } from "react-icons/fa"
 import { FaRegCircleUser } from "react-icons/fa6"
 import { FiHeart, FiShoppingBag } from "react-icons/fi"
@@ -21,7 +23,13 @@ interface Props {
 export const SectionHeader = ({
     className
 }: Props) => {
+    const [count, setCount] = useState(0)
     const {user, setUser} = useUser(state => state)
+
+    const {data: CountFavorites} = useGetCountFavoritesQuery({}, {
+        skip: !user.id
+    })
+
     const router = useRouter()
     const [inputValue, setInputValue] = useState("")
 
@@ -42,6 +50,10 @@ export const SectionHeader = ({
 
     const isAdmin = user.isAdmin
 
+    useEffect(() => {
+        if (CountFavorites === undefined || CountFavorites === null) return
+        setCount(prev => CountFavorites)
+    }, [CountFavorites])
     return (
         <header>
             <Container className="flex items-center justify-between h-[60px]">
@@ -50,9 +62,14 @@ export const SectionHeader = ({
                     <div className="flex items-center gap-2">
                         <div onClick={() => router.push('/favorites')} className="cursor-pointer relative">
                             <Heart size={20} strokeWidth={1} />
-                            <div className="absolute top-0 right-0 translate-x-[6px] -translate-y-[4px]">
-                                <div className="bg-[#FFF] flex items-center justify-center border border-[#242424d9] text-[12px] font-medium rounded-full min-w-[15px] h-[15px]">1</div>
-                            </div>
+                            {(count !== 0) && (
+                                <div className="absolute top-0 right-0 translate-x-[6px] -translate-y-[4px]">
+                                    <div className="bg-[#FFF] flex items-center justify-center border border-[#242424d9] text-[12px] font-medium rounded-full min-w-[15px] h-[15px]">
+                                        {count}
+                                    </div>
+                                </div>
+                            )}
+
                         </div>
                         <div onClick={() => router.push('/cart')} className="cursor-pointer relative">
                             <ShoppingBag size={20} strokeWidth={1} />

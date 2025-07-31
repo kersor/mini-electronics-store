@@ -25,10 +25,17 @@ export const favoritesApi = rootApi.injectEndpoints({
             }),
             providesTags: ["Favorites"]
         }),
+        getCountFavorites: build.query<any, any>({
+            query: () => ({
+                url: `/favorites/count`,
+            }),
+            providesTags: ["Favorites"]
+        }),
     })
 })
 
 export const {
+    useGetCountFavoritesQuery,
     useRemoveFavoritesMutation,
     useSendFavoritesMutation,
     useGetAllFavoritesQuery

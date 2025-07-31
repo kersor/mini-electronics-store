@@ -5,7 +5,6 @@ import { Container } from "@/react/components/containers/container/Container";
 import { SectionFilters } from "@/react/sections/catalog/sectionFilters/SectionFilters";
 import { useGetAllFavoritesQuery } from "@/scripts/api/favorites/favoritesApi";
 import { useGetAllProductsQuery } from "@/scripts/api/product/productApi";
-import { useFavorites } from "@/store/favorites.zustand";
 import { useFilters } from "@/store/filters.zustand";
 import { useEffect, useState } from "react";
 
@@ -144,7 +143,6 @@ const items = [
 ]
 
 export default function PageCatalog() {
-  const favorites = useFavorites(state => state)
   const { filters, actions, checkedFilters } = useFilters(state => state)
   const { addFilters, addFilter } = actions
   const [products, setProducts] = useState<any[]>([])
@@ -171,7 +169,7 @@ export default function PageCatalog() {
     if (DataProducts && !!DataProducts.length) {
       setProducts(DataProducts)
     }
-  }, [DataProducts, favorites.favorites])
+  }, [DataProducts])
 
 
 

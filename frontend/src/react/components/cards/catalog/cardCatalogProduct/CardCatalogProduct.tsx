@@ -6,7 +6,6 @@ import clsx from "clsx"
 import { FaHeart, FaRegHeart } from "react-icons/fa"
 import { StarRatingGet } from "@/react/components/ui/starRating/StarRatingGet"
 import { useRouter } from "next/navigation"
-import { useFavorites } from "@/store/favorites.zustand"
 import { BACKEND_DOMAIN } from "@/scripts/constants/back"
 import { useRemoveFavoritesMutation, useSendFavoritesMutation } from "@/scripts/api/favorites/favoritesApi"
 import { useUser } from "@/store/user.zustand"
@@ -31,16 +30,18 @@ export const CardCatalogProduct = ({
         router.push(`/product/${data.id}`)
     }
 
+    console.log(data)
+
     const funcOnClickToggleFavorite = async (e: MouseEvent<HTMLDivElement>) => {
         e.stopPropagation()
         if (!user.user.id) return
-
+        setIsFavorite(prev => !prev)
         if (isFavorite) {
             await removeFavorites({productId: data.id})
         } else {
             await sendFavorites({productId: data.id})
         }
-        setIsFavorite(prev => !prev)
+        
     }
 
     return (

@@ -16,6 +16,12 @@ export class FavoritesController {
   }
 
   @UseGuards(AuthGuard)
+  @Get('/count')
+  async getCountFavorites(@Bearer() token: string) {
+    return this.favoritesService.getCountFavorites(token)
+  }
+
+  @UseGuards(AuthGuard)
   @Delete()
   async removeFavoritesProuduct(@Body() dto: FavoritesCreateDto, @Bearer() token: string) {
     return this.favoritesService.removeFavoritesProuduct(dto, token)
@@ -26,5 +32,7 @@ export class FavoritesController {
   async getFavorites (@Bearer() token: string) {
     return this.favoritesService.getFavorites(token)
   }
+
+
 }
  
