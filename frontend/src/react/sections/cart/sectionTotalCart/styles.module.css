@@ -1,0 +1,48 @@
+.wrapper {
+    max-width: 500px;
+    flex: 1 1 0;
+    background-color: #f6f7fb;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.list {
+    border-top: 1px solid #a0a0a0;
+    margin-top: 30px;
+    padding-top: 20px;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.product_price {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    color: #648660;
+}
+
+.cart_list {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-top: 20px;
+}
+
+.cart_item {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+.cart_item__name {
+    flex: 1 1 0%;
+    @apply line-clamp-1;
+}
+
+.cart_item__price {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    color: #648660;
+}

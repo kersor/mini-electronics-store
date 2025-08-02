@@ -19,7 +19,7 @@ export const favoritesApi = rootApi.injectEndpoints({
             }),
             invalidatesTags: ["Favorites"]
         }),
-        getAllFavorites: build.query<any, void>({
+        getAllFavorites: build.query<any, any>({
             query: () => ({
                 url: `/favorites`,
             }),

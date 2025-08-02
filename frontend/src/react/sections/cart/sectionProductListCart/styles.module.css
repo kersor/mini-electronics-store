@@ -1,0 +1,50 @@
+.wrapper {
+    flex: 1 1 0%;
+}
+
+.product_list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+}
+
+.product {
+    display: flex;
+    justify-content: space-between;
+    background-color: #f6f7fb;
+    padding: 15px;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.product_photo {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.product_name {
+    @apply line-clamp-2;
+}
+
+.product_count {
+    display: flex;
+    align-items: flex-start;
+    gap: 5px;
+}
+
+.count_btn {
+    padding: 5px;
+    cursor: pointer;
+    background: #e0e0e0;
+    border-radius: 5px;
+}
+
+
+.product_price {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    color: #648660;
+}

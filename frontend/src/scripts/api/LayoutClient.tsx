@@ -10,11 +10,13 @@ import { useFavorites } from "@/store/favorites.zustand";
 export const ClientLayout = ({
     children
 }: PropsWithChildren) => {
-    const {setUser} = useUser(state => state)
+    const {setUser, user} = useUser(state => state)
     const {actions, favorites} = useFavorites(state => state)
     const {addAllFavorites} = actions
 
-    const {data: DataFavorites} = useGetAllFavoritesQuery()
+    const {data: DataFavorites} = useGetAllFavoritesQuery({}, {
+        skip: !user.id
+    })
     const {data: dataSelf} = useSelfQuery()
 
 
